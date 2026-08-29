@@ -33,6 +33,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.setFrameUsingName(AppDelegate.appWindowName)
     }
 
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        guard let toolbar = window.toolbar,
+              let statusItem = toolbar.items.first(where: { $0.view is StatusView }) else {
+            return
+        }
+
+        if #available(macOS 13.0, *) {
+            toolbar.centeredItemIdentifiers = [statusItem.itemIdentifier]
+        } else {
+            toolbar.centeredItemIdentifier = statusItem.itemIdentifier
+        }
+    }
+
     func applicationWillTerminate(_ aNotification: Notification) {
         // Memorize app window frame for restoration.
         window.saveFrame(usingName: AppDelegate.appWindowName)
@@ -75,8 +88,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func textServiceHandler(_ pboard: NSPasteboard, userData: String, error: NSErrorPointer) {
         if let string = pboard.string(forType: NSPasteboard.PasteboardType.string) {
             editor.contentTextView.string = string
+            editor.contentTextView.didChangeText()
         }
     }
 
 }
-
