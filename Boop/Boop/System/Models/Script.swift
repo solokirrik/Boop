@@ -19,7 +19,15 @@ class Script: NSObject {
     lazy var context: JSContext = { [unowned self] in
         let context: JSContext = JSContext()
         context.name = self.name ?? "Unknown Script"
-        
+
+        #if DEBUG
+        // Since macOS 13.3, Safari's Web Inspector only lists contexts that opt in.
+        // Dev builds only, see Documentation/Debugging.md.
+        if #available(macOS 13.3, *) {
+            context.isInspectable = true
+        }
+        #endif
+
         context.exceptionHandler = { [unowned self] context, exception in
             let message = "[\(self.name ?? "Unknown Script")] Error: \(exception?.toString() ?? "Unknown Error") "
             print(message)
