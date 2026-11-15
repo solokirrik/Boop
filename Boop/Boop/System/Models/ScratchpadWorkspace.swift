@@ -106,6 +106,54 @@ struct ScratchpadWorkspace: Codable, Equatable {
         tabs.swapAt(oldIndex, newIndex)
     }
 
+    // MARK: Operations by tab ID (one window per tab)
+
+    func tab(withID id: UUID) -> Scratchpad? {
+        return tabs.first(where: { $0.id == id })
+    }
+
+    mutating func select(tabID id: UUID) {
+        guard tabs.contains(where: { $0.id == id }) else { return }
+        selectedTabID = id
+    }
+
+    mutating func updateContent(_ content: String, forTab id: UUID) {
+        guard let index = tabs.firstIndex(where: { $0.id == id }) else { return }
+        tabs[index].content = content
+    }
+
+    mutating func renameTab(id: UUID, to title: String) {
+        let trimmedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedTitle.isEmpty, let index = tabs.firstIndex(where: { $0.id == id }) else { return }
+        tabs[index].title = trimmedTitle
+    }
+
+    /// Removes a tab. Removing the last one leaves a single blank tab.
+    mutating func removeTab(id: UUID) {
+        guard let index = tabs.firstIndex(where: { $0.id == id }) else { return }
+        guard tabs.count > 1 else {
+            let replacement = Scratchpad()
+            tabs = [replacement]
+            selectedTabID = replacement.id
+            return
+        }
+        tabs.remove(at: index)
+        if selectedTabID == id {
+            selectedTabID = tabs[min(index, tabs.count - 1)].id
+        }
+    }
+
+    /// Reorders tabs to match `ids`; unknown IDs are ignored, missing tabs keep their relative order at the end.
+    mutating func reorder(by ids: [UUID]) {
+        let position = Dictionary(uniqueKeysWithValues: ids.enumerated().map { ($1, $0) })
+        let indexed = tabs.enumerated().map { ($0, $1) }
+        tabs = indexed.sorted { lhs, rhs in
+            let left = position[lhs.1.id] ?? (ids.count + lhs.0)
+            let right = position[rhs.1.id] ?? (ids.count + rhs.0)
+            return left < right
+        }.map { $0.1 }
+    }
+
     private func nextTabTitle() -> String {
         let usedTitles = Set(tabs.map { $0.title })
         var number = 1

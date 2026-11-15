@@ -102,4 +102,61 @@ class BoopTests: XCTestCase {
         XCTAssertEqual(workspace.selectedTabID, second.id)
     }
 
+    // MARK: Operations by tab ID (one window per tab)
+
+    func testUpdatingContentByIDOnlyTouchesThatTab() {
+        let first = Scratchpad(title: "First", content: "one")
+        let second = Scratchpad(title: "Second", content: "two")
+        var workspace = ScratchpadWorkspace(tabs: [first, second], selectedTabID: first.id)
+
+        workspace.updateContent("changed", forTab: second.id)
+
+        XCTAssertEqual(workspace.tab(withID: first.id)?.content, "one")
+        XCTAssertEqual(workspace.tab(withID: second.id)?.content, "changed")
+        XCTAssertEqual(workspace.selectedTabID, first.id)
+    }
+
+    func testRemovingSelectedTabSelectsNeighbour() {
+        let tabs = [Scratchpad(title: "A"), Scratchpad(title: "B"), Scratchpad(title: "C")]
+        var workspace = ScratchpadWorkspace(tabs: tabs, selectedTabID: tabs[1].id)
+
+        workspace.removeTab(id: tabs[1].id)
+
+        XCTAssertEqual(workspace.tabs.map { $0.id }, [tabs[0].id, tabs[2].id])
+        XCTAssertEqual(workspace.selectedTabID, tabs[2].id)
+    }
+
+    func testRemovingLastTabLeavesOneBlankTab() {
+        let only = Scratchpad(title: "Only", content: "discard me")
+        var workspace = ScratchpadWorkspace(tabs: [only])
+
+        workspace.removeTab(id: only.id)
+
+        XCTAssertEqual(workspace.tabs.count, 1)
+        XCTAssertNotEqual(workspace.tabs[0].id, only.id)
+        XCTAssertEqual(workspace.tabs[0].content, "")
+        XCTAssertEqual(workspace.selectedTabID, workspace.tabs[0].id)
+    }
+
+    func testRenamingByIDTrimsAndIgnoresBlankTitles() {
+        let tab = Scratchpad(title: "Old")
+        var workspace = ScratchpadWorkspace(tabs: [tab])
+
+        workspace.renameTab(id: tab.id, to: "  New  ")
+        XCTAssertEqual(workspace.tab(withID: tab.id)?.title, "New")
+
+        workspace.renameTab(id: tab.id, to: "   ")
+        XCTAssertEqual(workspace.tab(withID: tab.id)?.title, "New")
+    }
+
+    func testReorderFollowsWindowOrderAndKeepsUnlistedTabs() {
+        let tabs = [Scratchpad(title: "A"), Scratchpad(title: "B"), Scratchpad(title: "C")]
+        var workspace = ScratchpadWorkspace(tabs: tabs)
+
+        // C was dragged first; A is not listed (e.g. a minimized window)
+        workspace.reorder(by: [tabs[2].id, tabs[1].id, UUID()])
+
+        XCTAssertEqual(workspace.tabs.map { $0.title }, ["C", "B", "A"])
+    }
+
 }

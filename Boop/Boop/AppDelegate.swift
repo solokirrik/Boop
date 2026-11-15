@@ -11,84 +11,93 @@ import SavannaKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    @IBOutlet weak var window: NSWindow!
-    @IBOutlet weak var openPickerMenuItem: NSMenuItem!
-    @IBOutlet weak var closePickerMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var popoverViewController: PopoverViewController!
-    @IBOutlet weak var scriptManager: ScriptManager!
-    @IBOutlet weak var editor: SyntaxTextView!
+    private var workspace: WorkspaceController {
+        return WorkspaceController.shared
+    }
 
-    // Frame auto save name for app window frame restoration.
-    private static let appWindowName = "boop.app.window"
-    
     func applicationWillFinishLaunching(_ notification: Notification) {
         ThemeSettingsViewController.applyTheme()
-        
-        NSWindow.allowsAutomaticWindowTabbing = false
         NSApp.servicesProvider = self
-        
-        // Restore app window frame.
-        window.setFrameUsingName(AppDelegate.appWindowName)
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        guard let toolbar = window.toolbar,
-              let statusItem = toolbar.items.first(where: { $0.view is StatusView }) else {
-            return
-        }
-
-        if #available(macOS 13.0, *) {
-            toolbar.centeredItemIdentifiers = [statusItem.itemIdentifier]
-        } else {
-            toolbar.centeredItemIdentifier = statusItem.itemIdentifier
-        }
+        installTabMenus()
+        workspace.restoreWindows()
     }
 
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Memorize app window frame for restoration.
-        window.saveFrame(usingName: AppDelegate.appWindowName)
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        // Windows closing during quit keep their tabs
+        workspace.isTerminating = true
+        workspace.flush()
+        return .terminateNow
     }
-    
+
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
     }
 
-    @IBAction func showPreferencesWindow(_ sender: NSMenuItem) {
-        let controller = NSStoryboard.init(name: "Preferences", bundle: nil).instantiateInitialController() as? NSWindowController
-        
-        controller?.showWindow(sender)
-        
-    }
-    
-    // Menu Stuff
-    
-    @IBAction func openPickerMenu(_ sender: NSMenuItem) {
-        popoverViewController.show()
-    }
-    
-    @IBAction func closePickerMenu(_ sender: Any) {
-        popoverViewController.hide()
-    }
-    
-    @IBAction func executeLastScript(_ sender: Any) {
-        popoverViewController.runScriptAgain()
-    }
-    
-    @IBAction func reloadScripts(_ sender: Any) {
-        scriptManager.reloadScripts()
-    }
-    
-    func setPopover(isOpen: Bool) {
-        closePickerMenuItem.isHidden = !isOpen
-        openPickerMenuItem.isHidden = isOpen
-    }
+    // MARK: Menus
 
-    @objc func textServiceHandler(_ pboard: NSPasteboard, userData: String, error: NSErrorPointer) {
-        if let string = pboard.string(forType: NSPasteboard.PasteboardType.string) {
-            editor.contentTextView.string = string
-            editor.contentTextView.didChangeText()
+    private func installTabMenus() {
+        guard let mainMenu = NSApp.mainMenu else { return }
+
+        if let fileMenu = mainMenu.item(withTitle: "File")?.submenu {
+            if let closeItem = fileMenu.items.first(where: { $0.keyEquivalent.lowercased() == "w" }) {
+                closeItem.title = "Close Tab"
+            }
+
+            // Sent along the responder chain to the key window's controller
+            let newTabItem = NSMenuItem(title: "New Tab", action: #selector(NSResponder.newWindowForTab(_:)), keyEquivalent: "t")
+            let renameItem = NSMenuItem(title: "Rename Tab…", action: #selector(BoopWindowController.renameTab(_:)), keyEquivalent: "")
+
+            fileMenu.insertItem(NSMenuItem.separator(), at: 0)
+            fileMenu.insertItem(renameItem, at: 0)
+            fileMenu.insertItem(newTabItem, at: 0)
+        }
+
+        if let windowMenu = mainMenu.item(withTitle: "Window")?.submenu {
+            windowMenu.addItem(NSMenuItem.separator())
+            for index in 0..<9 {
+                let item = NSMenuItem(title: "Tab \(index + 1)", action: #selector(BoopWindowController.selectNumberedTab(_:)), keyEquivalent: "\(index + 1)")
+                item.keyEquivalentModifierMask = [.command]
+                item.tag = index
+                windowMenu.addItem(item)
+            }
         }
     }
 
+    @IBAction func showPreferencesWindow(_ sender: NSMenuItem) {
+        let controller = NSStoryboard.init(name: "Preferences", bundle: nil).instantiateInitialController() as? NSWindowController
+
+        controller?.showWindow(sender)
+    }
+
+    @IBAction func reloadScripts(_ sender: Any) {
+        ScriptManager.shared.reloadScripts(status: workspace.keyController?.statusView)
+    }
+
+    @IBAction func openHelp(_ sender: Any) {
+        open(url: "https://boop.okat.best/docs/")
+    }
+
+    @IBAction func openScripts(_ sender: Any) {
+        open(url: "https://boop.okat.best/scripts/")
+    }
+
+    private func open(url: String) {
+        guard let url = URL(string: url) else {
+            assertionFailure("Could not generate help URL.")
+            return
+        }
+        NSWorkspace.shared.open(url)
+    }
+
+    // MARK: Services
+
+    @objc func textServiceHandler(_ pboard: NSPasteboard, userData: String, error: NSErrorPointer) {
+        guard let string = pboard.string(forType: NSPasteboard.PasteboardType.string),
+              let editor = workspace.keyController?.editor else { return }
+        editor.contentTextView.string = string
+        editor.contentTextView.didChangeText()
+    }
 }

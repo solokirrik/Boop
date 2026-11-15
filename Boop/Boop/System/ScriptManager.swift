@@ -17,8 +17,12 @@ class ScriptManager: NSObject {
     static let userPreferencesPathKey = "scriptsFolderPath"
     static let userPreferencesDataKey = "scriptsFolderData"
     
-    // This probably does not belong here.
-    @IBOutlet weak var statusView: StatusView!
+    /// One script library for all windows.
+    static let shared = ScriptManager()
+
+    /// Status bar of the window currently running a script. Script errors and
+    /// info messages arrive synchronously while a script runs, so they go here.
+    private weak var currentStatus: StatusView?
     
     let fuse = Fuse(threshold: 0.2)
     var scripts = [Script]()
@@ -138,8 +142,9 @@ class ScriptManager: NSObject {
         }
     }
     
-    func runScript(_ script: Script, into editor: SyntaxTextView) {
-        
+    func runScript(_ script: Script, into editor: SyntaxTextView, status: StatusView?) {
+
+        currentStatus = status
         let fullText = editor.text
         
         lastScript = script
@@ -220,28 +225,28 @@ class ScriptManager: NSObject {
     func runScript(_ script: Script, selection: String? = nil, fullText: String, insertIndex: Int? = nil) -> String {
         let scriptExecution = ScriptExecution(selection: selection, fullText: fullText, script: script, insertIndex: insertIndex)
         
-        self.statusView.setStatus(.normal)
+        currentStatus?.setStatus(.normal)
         script.run(with: scriptExecution)
         
         return scriptExecution.text ?? ""
     }
     
-    func runScriptAgain(editor: SyntaxTextView) {
+    func runScriptAgain(editor: SyntaxTextView, status: StatusView?) {
         guard let script = lastScript else {
             NSSound.beep()
             return
         }
-        
-        runScript(script, into: editor)
+
+        runScript(script, into: editor, status: status)
     }
-    
-    func reloadScripts() {
+
+    func reloadScripts(status: StatusView?) {
         lastScript = nil
         scripts.removeAll()
         loadDefaultScripts()
         loadUserScripts()
-        
-        statusView.setStatus(.success("Reloaded Scripts"))
+
+        status?.setStatus(.success("Reloaded Scripts"))
     }
     
     static func getBookmarkURL() throws -> URL? {
@@ -270,11 +275,11 @@ class ScriptManager: NSObject {
 
 extension ScriptManager: ScriptDelegate {
     func onScriptError(message: String) {
-        self.statusView.setStatus(.error(message))
+        currentStatus?.setStatus(.error(message))
     }
-    
+
     func onScriptInfo(message: String) {
-        self.statusView.setStatus(.info(message))
+        currentStatus?.setStatus(.info(message))
     }
     
     

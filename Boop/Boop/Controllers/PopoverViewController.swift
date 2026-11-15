@@ -45,15 +45,17 @@ class PopoverViewController: NSViewController {
     @IBOutlet weak var searchField: SearchField!
     @IBOutlet weak var editorView: SyntaxTextView!
     @IBOutlet weak var statusView: StatusView!
-    
-    @IBOutlet weak var scriptManager: ScriptManager!
-    
+
     @IBOutlet weak var tableView: ScriptTableView!
     @IBOutlet weak var tableHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableViewController: ScriptsTableViewController!
-    @IBOutlet weak var appDelegate: AppDelegate!
-    
+
+    let scriptManager = ScriptManager.shared
+
     var enabled = false // Closed by default
+
+    /// The app-wide key monitor; removed when this window's tab closes.
+    private var keyMonitor: Any?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,8 +79,13 @@ class PopoverViewController: NSViewController {
     func setupKeyHandlers() {
         
         var keyHandler: (_: NSEvent) -> NSEvent?
-        keyHandler = {
+        keyHandler = { [weak self]
             (_ theEvent: NSEvent) -> NSEvent? in
+
+            // Every tab has its own picker; only handle keys for this window.
+            guard let self = self, theEvent.window === self.view.window else {
+                return theEvent
+            }
             
             var didSomething = false
                 
@@ -145,7 +152,7 @@ class PopoverViewController: NSViewController {
         
         // Creates an object we do not own, but must keep track
         // of it so that it can be "removed" when we're done
-        NSEvent.addLocalMonitorForEvents(matching: .keyDown, handler: keyHandler)
+        keyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown, handler: keyHandler)
         
     }
     
@@ -166,9 +173,6 @@ class PopoverViewController: NSViewController {
         
         self.view.window?.makeFirstResponder(self.searchField)
         self.enabled = true
-        
-        appDelegate.setPopover(isOpen: true)
-        
     }
     
     func hide() {
@@ -182,12 +186,18 @@ class PopoverViewController: NSViewController {
         self.tableHeightConstraint.animator().constant = 0
         
         tableViewController.results = []
-        
-        appDelegate.setPopover(isOpen: false)
     }
-    
+
     func runScriptAgain() {
-        self.scriptManager.runScriptAgain(editor: self.editorView)
+        scriptManager.runScriptAgain(editor: editorView, status: statusView)
+    }
+
+    /// Called when this window's tab closes.
+    func tearDown() {
+        if let keyMonitor = keyMonitor {
+            NSEvent.removeMonitor(keyMonitor)
+            self.keyMonitor = nil
+        }
     }
 
     @objc private func runSelectedScript() {
@@ -199,7 +209,7 @@ class PopoverViewController: NSViewController {
         hide()
 
         // Run the script afterwards in case we need to show a status
-        scriptManager.runScript(script, into: editorView)
+        scriptManager.runScript(script, into: editorView, status: statusView)
     }
 
     /// Height of the results list: up to 5 visible rows (45pt + 2pt spacing)
