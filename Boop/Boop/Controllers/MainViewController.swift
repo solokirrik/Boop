@@ -11,8 +11,6 @@ import SavannaKit
 class MainViewController: NSViewController {
 
     @IBOutlet weak var editorView: SyntaxTextView!
-    @IBOutlet weak var updateBuddy: UpdateBuddy!
-    @IBOutlet weak var checkUpdateMenuItem: NSMenuItem!
 
     private let workspaceStore = ScratchpadWorkspaceStore()
     private var workspace = ScratchpadWorkspace()
@@ -33,11 +31,6 @@ class MainViewController: NSViewController {
 
         installCompatibleLayoutManager()
         
-        #if APPSTORE
-        
-        checkUpdateMenuItem.isHidden = true
-        
-        #endif
         
         editorView.delegate = self
 
@@ -366,9 +359,6 @@ class MainViewController: NSViewController {
     }
     
     
-    @IBAction func checkForUpdates(_ sender: Any) {
-        updateBuddy.check()
-    }
 }
 
 extension MainViewController: SyntaxTextViewDelegate {
