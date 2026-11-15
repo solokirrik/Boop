@@ -13,11 +13,12 @@
 function main(input) {
     const txt = input.text.split('\n');
     const newDataArr = [];
-    for (const line of txt){
+    for (const rawLine of txt){
+        const line = rawLine.trim();
         if (line.match(/^[-+]?[0-9]*\.?[0-9]+$/)){
             newDataArr.push(Number(line));
         } else {
-            newDataArr.push(line.trim());
+            newDataArr.push(line);
         }
     }
     input.text = JSON.stringify(newDataArr);
