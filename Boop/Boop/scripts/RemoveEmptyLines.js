@@ -22,6 +22,6 @@ function main(input) {
 		input.text = result.join("\n");
 	}
 	catch(error) {
-		state.postError("Something strange happened here...")
+		input.postError("Something strange happened here...")
 	}
 }

@@ -5,7 +5,7 @@
 		"description":"Cleans up a URL by removing the query string.",
 		"author":"Seth Soffer",
 		"icon":"link",
-		"tags":"url,trim,querystring,query string",
+		"tags":"url,trim,querystring,query string"
 	}
  **/
 function main(state){

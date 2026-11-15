@@ -5,7 +5,7 @@
 		"description":"Converts a date to milliseconds since the UNIX epoch.",
 		"author":"Seth Soffer",
 		"icon":"watch",
-		"tags":"date,unix,milliseconds,timestamp",
+		"tags":"date,unix,milliseconds,timestamp"
 	}
  **/
 function main(state){
