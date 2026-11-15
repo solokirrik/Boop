@@ -162,7 +162,7 @@ class PopoverViewController: NSViewController {
             left.name ?? "" < right.name ?? ""
         }
         self.tableViewController.results = allScriptsList
-        self.tableHeightConstraint.constant = CGFloat(47 * min(5, allScriptsList.count))
+        self.tableHeightConstraint.constant = tableHeight(rows: allScriptsList.count)
         
         self.view.window?.makeFirstResponder(self.searchField)
         self.enabled = true
@@ -201,7 +201,13 @@ class PopoverViewController: NSViewController {
         // Run the script afterwards in case we need to show a status
         scriptManager.runScript(script, into: editorView)
     }
-    
+
+    /// Height of the results list: up to 5 visible rows (45pt + 2pt spacing)
+    /// plus a small bottom margin, without revealing part of a 6th row.
+    func tableHeight(rows: Int) -> CGFloat {
+        guard rows > 0 else { return 0 }
+        return CGFloat(47 * min(5, rows) + 4)
+    }
 }
 
 extension PopoverViewController: NSTextFieldDelegate {
@@ -213,6 +219,6 @@ extension PopoverViewController: NSTextFieldDelegate {
         let results = scriptManager.search(searchField.stringValue)
         tableViewController.results = results
         
-        self.tableHeightConstraint.constant = CGFloat(45 * min(5, results.count) + ((results.count != 0) ? 20 : 0))
+        self.tableHeightConstraint.constant = tableHeight(rows: results.count)
     }
 }

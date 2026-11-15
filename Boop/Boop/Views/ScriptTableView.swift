@@ -9,6 +9,13 @@ import Foundation
 import Cocoa
 
 class ScriptTableView: NSTableView {
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        if #available(macOS 11.0, *) {
+            self.style = .inset
+        }
+    }
     override func resignFirstResponder() -> Bool {
         self.deselectAll(self)
         return true

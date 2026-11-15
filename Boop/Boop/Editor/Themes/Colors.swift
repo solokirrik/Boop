@@ -34,26 +34,66 @@ struct Colors {
     }
 }
 
+extension NSColor {
+    /// Resolves a dynamic (system) color for a given appearance, for use on CALayers.
+    func cgColor(for appearance: NSAppearance) -> CGColor {
+        var resolved = self.cgColor
+        appearance.performAsCurrentDrawingAppearance {
+            resolved = self.cgColor
+        }
+        return resolved
+    }
+}
+
+enum Backdrop {
+    static let cornerRadius: CGFloat = 16
+
+    /// A translucent background: Liquid Glass on macOS 26+, a popover material before that.
+    static func make(cornerRadius: CGFloat = Backdrop.cornerRadius) -> NSView {
+        if #available(macOS 26.0, *) {
+            let glass = NSGlassEffectView()
+            glass.cornerRadius = cornerRadius
+            return glass
+        }
+
+        let effect = NSVisualEffectView()
+        effect.material = .popover
+        effect.blendingMode = .withinWindow
+        effect.state = .active
+        effect.wantsLayer = true
+        effect.layer?.cornerRadius = cornerRadius
+        effect.layer?.cornerCurve = .continuous
+        effect.layer?.masksToBounds = true
+        return effect
+    }
+
+    static func pin(_ view: NSView, below siblings: NSView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        siblings.addSubview(view, positioned: .below, relativeTo: nil)
+        NSLayoutConstraint.activate([
+            view.leadingAnchor.constraint(equalTo: siblings.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: siblings.trailingAnchor),
+            view.topAnchor.constraint(equalTo: siblings.topAnchor),
+            view.bottomAnchor.constraint(equalTo: siblings.bottomAnchor)
+        ])
+    }
+}
+
 struct ColorPair {
     
     static let red = ColorPair(light: Colors.redButDarker, dark: Colors.redey)
     static let blue = ColorPair(light: Colors.blueButDarker, dark: Colors.bluish)
     static let green = ColorPair(light: Colors.greenButDarker, dark: Colors.greenish)
-    static let purple = ColorPair(light: Colors.purpleButItsLighter, dark: Colors.purpleButDarker)
     static let cyanish = ColorPair(light: Colors.cyanTinyBitDarker, dark: Colors.cyanish)
     static let orangish = ColorPair(light: Colors.orangeABitDarker, dark: Colors.orangeish)
     
     static let body = ColorPair(light: .init(white: 0.1, alpha: 1), dark: .white)
-    static let normal = ColorPair(light: .init(white: 0.85, alpha: 1), dark: .init(white: 0.3, alpha: 1))
     static let gutter = ColorPair(light: .init(white: 240/255, alpha: 1), dark: .init(white: 27/255, alpha: 1))
-    static let popover = ColorPair(light: .init(white: 0.95, alpha: 1), dark: .init(white: 0.12, alpha: 1))
     
     static let comments = ColorPair(light: Colors.commentGreyDarkest, dark: Colors.commentGreyDarkest)
     static let separator = ColorPair(light: .init(white: 220/255, alpha: 1), dark: .init(white: 45/255, alpha: 1))
     static let background = ColorPair(light: .init(white: 0.95, alpha: 1.0), dark: .init(white: 31/255, alpha: 1.0))
-    static let overlayColor = ColorPair(light: .init(white: 0.85, alpha: 0.6), dark: .init(white: 0.08, alpha: 0.6))
-    static let popoverBorder = ColorPair(light: .init(white: 220/255, alpha: 1), dark: .init(white: 75/255, alpha: 1))
-    static let popoverOutline = ColorPair(light: .init(white: 150/255, alpha: 1), dark: .init(white: 20/255, alpha: 1))
+    static let overlayColor = ColorPair(light: .init(white: 0, alpha: 0.12), dark: .init(white: 0, alpha: 0.35))
     
     
     let light: NSColor

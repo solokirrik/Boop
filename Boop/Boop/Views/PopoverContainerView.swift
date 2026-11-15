@@ -19,31 +19,16 @@ class PopoverContainerView: NSView {
         super.init(coder: decoder)
        
         self.wantsLayer = true
-        self.layer?.cornerRadius = 12.0
-        
-        let dropShadow = NSShadow()
-        dropShadow.shadowColor = NSColor(calibratedWhite: 0, alpha: 0.45)
-        dropShadow.shadowOffset = NSMakeSize(0, -20.0)
-        dropShadow.shadowBlurRadius = 10.0
-        
-        
-        self.layer?.borderWidth = 0.5
-        
-        self.shadow = dropShadow
-        
-        self.isHidden = true
-        
-        self.setOutline()
-        
-    }
+        self.layer?.cornerRadius = Backdrop.cornerRadius
+        self.layer?.cornerCurve = .continuous
 
-    func setOutline() {
-        self.layer?.borderColor = ColorPair.popoverOutline.value(for: self.effectiveAppearance).cgColor
-    }
-    
-    override func viewDidChangeEffectiveAppearance() {
-        super.viewDidChangeEffectiveAppearance()
-        self.setOutline()
+        let dropShadow = NSShadow()
+        dropShadow.shadowColor = NSColor(calibratedWhite: 0, alpha: 0.25)
+        dropShadow.shadowOffset = NSMakeSize(0, -8.0)
+        dropShadow.shadowBlurRadius = 28.0
+        self.shadow = dropShadow
+
+        self.isHidden = true
     }
     
     func show() {

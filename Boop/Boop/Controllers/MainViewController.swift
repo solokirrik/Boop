@@ -34,7 +34,7 @@ class MainViewController: NSViewController {
         
         editorView.delegate = self
 
-        editorView.contentTextView.selectedTextAttributes = [.backgroundColor:NSColor(red:0.19, green:0.44, blue:0.71, alpha:1.0), .foregroundColor: NSColor.white]
+        editorView.contentTextView.selectedTextAttributes = [.backgroundColor: NSColor.selectedTextBackgroundColor]
 
         workspace = workspaceStore.load()
         installTabBar()
@@ -199,8 +199,8 @@ class MainViewController: NSViewController {
         tabScrollView.documentView = tabStackView
         tabBar.addSubview(tabScrollView)
 
-        configureBarButton(addTabButton, imageName: NSImage.addTemplateName, toolTip: "New Tab (⌘T)", action: #selector(newTab(_:)))
-        configureBarButton(closeTabButton, imageName: NSImage.stopProgressTemplateName, toolTip: "Close Tab (⌘W)", action: #selector(closeTab(_:)))
+        configureBarButton(addTabButton, symbolName: "plus", toolTip: "New Tab (⌘T)", action: #selector(newTab(_:)))
+        configureBarButton(closeTabButton, symbolName: "xmark", toolTip: "Close Tab (⌘W)", action: #selector(closeTab(_:)))
         tabBar.addSubview(addTabButton)
         tabBar.addSubview(closeTabButton)
 
@@ -232,11 +232,12 @@ class MainViewController: NSViewController {
         }
     }
 
-    private func configureBarButton(_ button: NSButton, imageName: NSImage.Name, toolTip: String, action: Selector) {
+    private func configureBarButton(_ button: NSButton, symbolName: String, toolTip: String, action: Selector) {
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.image = NSImage(named: imageName)
+        button.image = NSImage(systemSymbolName: symbolName, accessibilityDescription: toolTip)
         button.imagePosition = .imageOnly
-        button.bezelStyle = .texturedRounded
+        button.bezelStyle = .accessoryBarAction
+        button.showsBorderOnlyWhileMouseInside = true
         button.toolTip = toolTip
         button.target = self
         button.action = action
@@ -265,7 +266,7 @@ class MainViewController: NSViewController {
             button.tag = index
             button.setButtonType(.pushOnPushOff)
             button.state = index == workspace.selectedIndex ? .on : .off
-            button.bezelStyle = .texturedRounded
+            button.bezelStyle = .accessoryBarAction
             button.lineBreakMode = .byTruncatingTail
             button.toolTip = tab.title
             button.widthAnchor.constraint(equalToConstant: 128).isActive = true

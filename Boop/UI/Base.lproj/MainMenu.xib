@@ -627,9 +627,9 @@ Gw
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="lpr-jW-wRt" firstAttribute="top" secondItem="EfF-8p-bmE" secondAttribute="bottom" id="2ID-K8-nFS"/>
-                                    <constraint firstItem="EfF-8p-bmE" firstAttribute="leading" secondItem="NDF-Rt-5B3" secondAttribute="leading" constant="12" id="2Qj-w2-tCw"/>
+                                    <constraint firstItem="EfF-8p-bmE" firstAttribute="leading" secondItem="NDF-Rt-5B3" secondAttribute="leading" constant="20" id="2Qj-w2-tCw"/>
                                     <constraint firstItem="lpr-jW-wRt" firstAttribute="leading" secondItem="NDF-Rt-5B3" secondAttribute="leading" id="dOf-du-E6M"/>
-                                    <constraint firstAttribute="trailing" secondItem="EfF-8p-bmE" secondAttribute="trailing" constant="12" id="eSY-Sy-G2J"/>
+                                    <constraint firstAttribute="trailing" secondItem="EfF-8p-bmE" secondAttribute="trailing" constant="20" id="eSY-Sy-G2J"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="EfF-8p-bmE" secondAttribute="bottom" constant="8" id="hUt-ze-STS"/>
                                     <constraint firstItem="EfF-8p-bmE" firstAttribute="top" secondItem="NDF-Rt-5B3" secondAttribute="top" constant="12" id="hvZ-Ps-eCw"/>
                                     <constraint firstAttribute="bottom" secondItem="lpr-jW-wRt" secondAttribute="bottom" id="v0z-IJ-iPG"/>

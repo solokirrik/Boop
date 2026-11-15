@@ -34,10 +34,13 @@ class StatusView: NSView {
         super.awakeFromNib()
         
         self.wantsLayer = true
-        
-        self.layer?.backgroundColor = ColorPair.normal.value(for: self.effectiveAppearance).cgColor
-        self.layer?.cornerRadius = 5
-        
+        self.layer?.cornerCurve = .continuous
+        self.updateColor(.normal)
+    }
+
+    override func layout() {
+        super.layout()
+        self.layer?.cornerRadius = self.bounds.height / 2
     }
     
     var onMouseDown: (() -> Void)?
@@ -129,22 +132,22 @@ class StatusView: NSView {
     
     fileprivate func updateColor(_ newStatus: Status) {
         
-        var color = ColorPair.normal
-        
+        var color = NSColor.quaternaryLabelColor
+
         switch newStatus {
         case .normal, .help(_):
             break
         case .success(_):
-            color = ColorPair.green.swap
+            color = NSColor.systemGreen.withAlphaComponent(0.3)
         case .info(_):
-            color = ColorPair.blue.swap
+            color = NSColor.systemBlue.withAlphaComponent(0.3)
         case .error(_):
-            color = ColorPair.red.swap
+            color = NSColor.systemRed.withAlphaComponent(0.3)
         case .updateAvailable:
-            color = ColorPair.purple
+            color = NSColor.systemPurple.withAlphaComponent(0.3)
         }
-        
-        self.layer?.backgroundColor = color.value(for: self.effectiveAppearance).cgColor
+
+        self.layer?.backgroundColor = color.cgColor(for: self.effectiveAppearance)
     }
     
     override func viewDidChangeEffectiveAppearance() {

@@ -11,28 +11,24 @@ class PopoverView: NSView {
 
     required init?(coder decoder: NSCoder) {
         super.init(coder: decoder)
-        
-        // UI set up
-        self.wantsLayer = true
-        self.layer?.cornerRadius = 12.0
-        self.layer?.masksToBounds = true
-        
-        self.layer?.borderWidth = 1.5
-        
-        self.setBackground()
 
-        
+        self.wantsLayer = true
+        self.layer?.cornerRadius = Backdrop.cornerRadius
+        self.layer?.cornerCurve = .continuous
+        self.layer?.masksToBounds = true
+        self.layer?.borderWidth = 0.5
+
+        Backdrop.pin(Backdrop.make(), below: self)
+        self.setBorder()
     }
-    
-    func setBackground() {
-        
-        self.layer?.backgroundColor = ColorPair.popover.value(for: self.effectiveAppearance).cgColor
-        self.layer?.borderColor = ColorPair.popoverBorder.value(for: self.effectiveAppearance).cgColor
-        
+
+    func setBorder() {
+        // A hairline edge so the panel separates from the text behind it
+        self.layer?.borderColor = NSColor.separatorColor.cgColor(for: self.effectiveAppearance)
     }
-    
+
     override func viewDidChangeEffectiveAppearance() {
         super.viewDidChangeEffectiveAppearance()
-        self.setBackground()
+        self.setBorder()
     }
 }
