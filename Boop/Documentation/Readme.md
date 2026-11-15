@@ -17,7 +17,7 @@ You can download Boop from the Mac App Store, or from the [Releases page on GitH
 
 Boop is pretty easy to use: Open it, paste some text, run some scripts, optionally copy the text out.
 
-To run scripts, simply open the script picker by pressing `⌘B` or in the top menu under `Scripts > Open Picker`. 
+To run scripts, open the script picker by pressing `⌘P` (`⇧⌘P` and the classic `⌘B` work too) or in the top menu under `Scripts > Open Picker`. 
 
 From the script picker, start typing to search for a script. You can then press `Enter ⏎` to pick the first script, or use the arrow keys to select another one. 
 

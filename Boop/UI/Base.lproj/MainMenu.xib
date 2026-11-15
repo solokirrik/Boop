@@ -114,13 +114,13 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
-                            <menuItem title="Page Setup…" hidden="YES" keyEquivalent="P" id="qIS-W8-SiK">
+                            <menuItem title="Page Setup…" hidden="YES" id="qIS-W8-SiK">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                 <connections>
                                     <action selector="runPageLayout:" target="-1" id="Din-rz-gC5"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Print…" hidden="YES" keyEquivalent="p" id="aTl-1u-JFS">
+                            <menuItem title="Print…" hidden="YES" id="aTl-1u-JFS">
                                 <connections>
                                     <action selector="print:" target="-1" id="qaZ-4w-aoO"/>
                                 </connections>
@@ -371,7 +371,7 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Scripts" id="U3P-so-E58">
                         <items>
-                            <menuItem title="Open Picker" keyEquivalent="b" id="8ka-cp-srR">
+                            <menuItem title="Open Picker" keyEquivalent="p" id="8ka-cp-srR">
                                 <connections>
                                     <action selector="openPickerMenu:" target="-1" id="tmO-7H-2TQ"/>
                                 </connections>

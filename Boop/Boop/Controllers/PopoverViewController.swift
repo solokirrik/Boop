@@ -9,6 +9,8 @@ import Cocoa
 import SavannaKit
 
 fileprivate let kVKTab = 0x30
+fileprivate let kVKB = 0x0B
+fileprivate let kVKP = 0x23
     // 125 is down arrow
     // 126 is up
     // 53 is escape
@@ -88,6 +90,17 @@ class PopoverViewController: NSViewController {
             }
             
             var didSomething = false
+
+            // ⌘P is the menu shortcut; ⌘B (classic Boop) and ⇧⌘P (command palette) open the picker too
+            if !self.enabled {
+                let modifiers = theEvent.modifierFlags.intersection(.deviceIndependentFlagsMask)
+                let isCommandB = theEvent.keyCode == kVKB && modifiers == [.command]
+                let isShiftCommandP = theEvent.keyCode == kVKP && modifiers == [.command, .shift]
+                if isCommandB || isShiftCommandP {
+                    self.show()
+                    return nil
+                }
+            }
                 
             if theEvent.keyCode == 53 && self.enabled { // ESCAPE
                 

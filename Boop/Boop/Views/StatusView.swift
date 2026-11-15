@@ -36,6 +36,8 @@ class StatusView: NSView {
         self.wantsLayer = true
         self.layer?.cornerCurve = .continuous
         self.updateColor(.normal)
+        self.alphaValue = 0
+        self.isHidden = true
     }
 
     override func layout() {
@@ -109,7 +111,7 @@ class StatusView: NSView {
         case .success(let value):
             text = value
         case .normal:
-            text = "Press ⌘+B to get started"
+            text = ""
         case .updateAvailable(let link):
             text = "New version available! "
         
@@ -119,6 +121,22 @@ class StatusView: NSView {
         }
         
         self.textLabel.stringValue = text
+
+        let idle: Bool
+        if case .normal = newStatus { idle = true } else { idle = false }
+        self.setIdle(idle)
+    }
+
+    /// Idle means nothing to say: the pill fades out of the toolbar.
+    private func setIdle(_ idle: Bool) {
+        if !idle { self.isHidden = false }
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = self.transitionLength
+            self.animator().alphaValue = idle ? 0 : 1
+        }, completionHandler: {
+            // Hidden views don't take clicks; check again in case a message arrived meanwhile
+            if self.alphaValue == 0 { self.isHidden = true }
+        })
     }
     
     fileprivate func fadeText(to alphaValue: CGFloat, completionHandler: (() -> Void)? = nil) {
