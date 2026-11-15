@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB0000010000000000000012 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000011 /* AppIcon.icon */; };
+		BB0000010000000000000013 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000011 /* AppIcon.icon */; };
 		BB0000010000000000000002 /* BoopWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000001 /* BoopWindowController.swift */; };
 		BB0000010000000000000003 /* BoopWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000001 /* BoopWindowController.swift */; };
 		BB0000010000000000000005 /* WorkspaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000004 /* WorkspaceController.swift */; };
@@ -126,6 +128,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BB0000010000000000000011 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		BB0000010000000000000001 /* BoopWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoopWindowController.swift; sourceTree = "<group>"; };
 		BB0000010000000000000004 /* WorkspaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceController.swift; sourceTree = "<group>"; };
 		BB0000010000000000000008 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/BoopWindow.xib; sourceTree = "<group>"; };
@@ -243,6 +246,7 @@
 				2C20668321FD62D00082570E /* Frameworks */,
 				2C20667521FD628E0082570E /* AppDelegate.swift */,
 				2C20667721FD62910082570E /* Assets.xcassets */,
+				BB0000010000000000000011 /* AppIcon.icon */,
 				2C20667C21FD62910082570E /* Info.plist */,
 				2C20667D21FD62910082570E /* Boop.entitlements */,
 			);
@@ -475,6 +479,7 @@
 				BB0000010000000000000009 /* BoopWindow.xib in Resources */,
 				2C9761D52214E11600AFF8CD /* scripts in Resources */,
 				2C20667821FD62910082570E /* Assets.xcassets in Resources */,
+				BB0000010000000000000012 /* AppIcon.icon in Resources */,
 				2C20667B21FD62910082570E /* MainMenu.xib in Resources */,
 				2C5ED41E2357F67200322893 /* Preferences.storyboard in Resources */,
 			);
@@ -487,6 +492,7 @@
 				BB0000010000000000000010 /* BoopWindow.xib in Resources */,
 				2C60A55524871273006496BA /* scripts in Resources */,
 				2C60A55624871273006496BA /* Assets.xcassets in Resources */,
+				BB0000010000000000000013 /* AppIcon.icon in Resources */,
 				2C60A55724871273006496BA /* MainMenu.xib in Resources */,
 				2C60A55824871273006496BA /* Preferences.storyboard in Resources */,
 			);
