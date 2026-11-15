@@ -35,6 +35,15 @@ struct Colors {
 }
 
 extension NSColor {
+    /// Resolves a dynamic (system) color into a fixed color for the given appearance.
+    func resolved(for appearance: NSAppearance) -> NSColor {
+        var color = self
+        appearance.performAsCurrentDrawingAppearance {
+            color = NSColor(cgColor: self.cgColor) ?? self
+        }
+        return color
+    }
+
     /// Resolves a dynamic (system) color for a given appearance, for use on CALayers.
     func cgColor(for appearance: NSAppearance) -> CGColor {
         var resolved = self.cgColor
@@ -87,12 +96,8 @@ struct ColorPair {
     static let cyanish = ColorPair(light: Colors.cyanTinyBitDarker, dark: Colors.cyanish)
     static let orangish = ColorPair(light: Colors.orangeABitDarker, dark: Colors.orangeish)
     
-    static let body = ColorPair(light: .init(white: 0.1, alpha: 1), dark: .white)
-    static let gutter = ColorPair(light: .init(white: 240/255, alpha: 1), dark: .init(white: 27/255, alpha: 1))
     
     static let comments = ColorPair(light: Colors.commentGreyDarkest, dark: Colors.commentGreyDarkest)
-    static let separator = ColorPair(light: .init(white: 220/255, alpha: 1), dark: .init(white: 45/255, alpha: 1))
-    static let background = ColorPair(light: .init(white: 0.95, alpha: 1.0), dark: .init(white: 31/255, alpha: 1.0))
     static let overlayColor = ColorPair(light: .init(white: 0, alpha: 0.12), dark: .init(white: 0, alpha: 0.35))
     
     

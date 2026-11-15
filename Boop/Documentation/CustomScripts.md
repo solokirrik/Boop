@@ -3,7 +3,7 @@
 
 ## Setup
 
-To use custom scripts, you need to tell Boop where to find them. Open the preferences Menu ( `Boop > Preferences...` or `⌘,` ) and go to the Scripts tab. You'll be able to set a custom path for Boop to look in.
+To use custom scripts, you need to tell Boop where to find them. Open Settings ( `Boop > Settings…` or `⌘,` ) and go to the Scripts tab. You'll be able to set a custom path for Boop to look in.
 
 
 ## Writing Custom Scripts

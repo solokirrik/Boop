@@ -21,18 +21,64 @@ class ScriptsTableViewController: NSViewController, NSTableViewDelegate, NSTable
         return results.count
     }
     
+    /// SF Symbols for the built-in icon names. Scripts keep using the same
+    /// names; the bundled icons8 PDFs remain as a fallback.
+    private static let symbolNames: [String: String] = [
+        "abacus": "sum",
+        "broom": "wand.and.stars",
+        "camel": "textformat.abc",
+        "collapse": "arrow.down.right.and.arrow.up.left",
+        "color-wheel": "paintpalette",
+        "colosseum": "building.columns",
+        "command": "command",
+        "counter": "number",
+        "dice": "dice",
+        "elephant": "chevron.left.forwardslash.chevron.right",
+        "filtration": "line.3.horizontal.decrease",
+        "fingerprint": "touchid",
+        "flask": "testtube.2",
+        "flip": "arrow.up.arrow.down",
+        "globe": "globe",
+        "html": "chevron.left.forwardslash.chevron.right",
+        "identification": "person.text.rectangle",
+        "kebab": "minus",
+        "link": "link",
+        "metamorphose": "arrow.triangle.2.circlepath",
+        "percentage": "percent",
+        "pineapple": "leaf",
+        "quote": "text.quote",
+        "roman": "lock.rotation",
+        "scissors": "scissors",
+        "snake": "textformat.abc.dottedunderline",
+        "sort-characters": "textformat",
+        "sort-numbers": "list.number",
+        "table": "tablecells",
+        "term": "terminal",
+        "translation": "character.bubble",
+        "type": "textformat.size",
+        "unknown": "questionmark",
+        "watch": "clock",
+        "website": "network",
+    ]
+
+    private static let symbolConfiguration = NSImage.SymbolConfiguration(pointSize: 17, weight: .regular)
+
+    private func symbol(_ name: String) -> NSImage? {
+        return NSImage(systemSymbolName: name, accessibilityDescription: nil)?
+            .withSymbolConfiguration(Self.symbolConfiguration)
+    }
+
     private func scriptIcon(identifier: String?) -> NSImage? {
-        guard let identifier = identifier else {
-            return NSImage(named: "icons8-unknown")
+        let identifier = identifier?.lowercased() ?? "unknown"
+
+        if let name = Self.symbolNames[identifier], let image = symbol(name) {
+            return image
         }
         if let namedImage = NSImage(named: "icons8-\(identifier)") {
             return namedImage
         }
-        if #available(macOS 11.0, *),
-           let systemImage = NSImage(systemSymbolName: identifier, accessibilityDescription: nil) {
-            return systemImage
-        }
-        return nil
+        // Custom scripts may name any SF Symbol directly
+        return symbol(identifier) ?? symbol("questionmark")
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {        

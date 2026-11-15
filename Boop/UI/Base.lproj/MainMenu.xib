@@ -68,7 +68,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                            <menuItem title="Settings…" keyEquivalent="," id="BOF-NM-1cW">
                                 <connections>
                                     <action selector="showPreferencesWindow:" target="Voe-Tx-rLC" id="39H-Se-7g1"/>
                                 </connections>

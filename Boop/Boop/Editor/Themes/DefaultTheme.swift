@@ -16,24 +16,24 @@ class DefaultTheme: SyntaxColorTheme {
     
     var gutterStyle: GutterStyle {
         GutterStyle(
-            backgroundColor: ColorPair.gutter.value(for: appearance),
-            separatorColor: ColorPair.separator.value(for: appearance),
+            backgroundColor: NSColor.textBackgroundColor.resolved(for: appearance),
+            separatorColor: NSColor.separatorColor.resolved(for: appearance),
             minimumWidth: 40
         )
     }
     
-    var font: Font = NSFont(name: "SFMono-Regular", size: 15) ?? Font(name: "Menlo", size: 15)!
+    var font: Font = NSFont.monospacedSystemFont(ofSize: 15, weight: .regular)
     
     let lineNumbersStyle: LineNumbersStyle?
     
     var backgroundColor: Color {
-        return ColorPair.background.value(for: appearance)
+        return NSColor.textBackgroundColor.resolved(for: appearance)
     }
     
     
     init(appearance: NSAppearance) {
         self.appearance = appearance
-        lineNumbersStyle = LineNumbersStyle(font: font, textColor: Color(red: 100/255, green: 100/255, blue: 100/255, alpha: 1.0))
+        lineNumbersStyle = LineNumbersStyle(font: font, textColor: NSColor.tertiaryLabelColor.resolved(for: appearance))
     }
     
     func globalAttributes() -> [NSAttributedString.Key: Any] {
@@ -41,7 +41,7 @@ class DefaultTheme: SyntaxColorTheme {
         var attributes = [NSAttributedString.Key: Any]()
         
         attributes[.font] = self.font
-        attributes[.foregroundColor] = ColorPair.body.value(for: appearance)
+        attributes[.foregroundColor] = NSColor.textColor.resolved(for: appearance)
         
         return attributes
     }
