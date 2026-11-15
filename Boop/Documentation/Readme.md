@@ -51,7 +51,7 @@ No. The only time Boop communicates outside of itself is to check whether a new 
 
 ### How can I report a problem?
 
-The best way to do that is to [file an issue on GitHub](https://github.com/IvanMathy/Boop/issues/new). Otherwise, you can [talk to me on Twitter](https://twitter.com/OKatBest), as long as you're nice.
+The best way to do that is to [file an issue on GitHub](https://github.com/solokirrik/Boop/issues/new).
 
 ### How is Boop built?
 

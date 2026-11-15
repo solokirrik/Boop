@@ -3,7 +3,6 @@
 //  Yup
 //
 //  Created by Ivan on 1/15/17.
-//  Copyright © 2017 OKatBest. All rights reserved.
 //
 
 import Cocoa

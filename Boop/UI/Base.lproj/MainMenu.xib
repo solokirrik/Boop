@@ -495,10 +495,6 @@ Gw
                                     <action selector="openHelp:" target="unv-pE-gme" id="8ta-uT-eZh"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="Fec-Ba-9Rm"/>
-                            <menuItem title="@OKatBest on Twitter" id="N9h-rg-i4V" userLabel="@OKatBest on Twitter">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>

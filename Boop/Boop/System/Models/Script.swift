@@ -3,7 +3,6 @@
 //  Boop
 //
 //  Created by Ivan on 2/13/19.
-//  Copyright © 2019 OKatBest. All rights reserved.
 //
 
 import Foundation
