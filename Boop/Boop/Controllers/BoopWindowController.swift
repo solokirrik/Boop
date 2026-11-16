@@ -61,18 +61,8 @@ class BoopWindowController: NSWindowController, NSWindowDelegate, NSMenuItemVali
 
     // MARK: Transparency
 
-    /// Blurs what's behind the window; the editor's background lets it through.
-    /// fullScreenUI is one of the few behind-window materials that isn't nearly
-    /// opaque in light mode (underWindowBackground/windowBackground look solid white).
-    private let backdrop: NSVisualEffectView = {
-        let view = NSVisualEffectView()
-        view.material = .fullScreenUI
-        view.blendingMode = .behindWindow
-        view.state = .active
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
+    /// Shows what's behind the window; the editor's background lets it through.
+    private var backdrop: NSView?
     private func installBackdrop() {
         guard let window = window, let content = window.contentView else { return }
 
@@ -83,13 +73,6 @@ class BoopWindowController: NSWindowController, NSWindowDelegate, NSMenuItemVali
             pinTops(of: content.subviews, in: content, to: guide.topAnchor)
         }
 
-        content.addSubview(backdrop, positioned: .below, relativeTo: nil)
-        NSLayoutConstraint.activate([
-            backdrop.leadingAnchor.constraint(equalTo: content.leadingAnchor),
-            backdrop.trailingAnchor.constraint(equalTo: content.trailingAnchor),
-            backdrop.topAnchor.constraint(equalTo: content.topAnchor),
-            backdrop.bottomAnchor.constraint(equalTo: content.bottomAnchor)
-        ])
         updateBackdrop()
     }
 
@@ -111,10 +94,51 @@ class BoopWindowController: NSWindowController, NSWindowDelegate, NSMenuItemVali
     }
 
     @objc private func updateBackdrop() {
+        guard let window = window, let content = window.contentView else { return }
         let transparent = WindowTransparency.level > 0
-        backdrop.isHidden = !transparent
-        window?.isOpaque = !transparent
-        window?.backgroundColor = transparent ? .clear : .windowBackgroundColor
+
+        backdrop?.removeFromSuperview()
+        backdrop = transparent ? BoopWindowController.makeBackdrop(WindowTransparency.style) : nil
+        if let backdrop = backdrop {
+            backdrop.translatesAutoresizingMaskIntoConstraints = false
+            content.addSubview(backdrop, positioned: .below, relativeTo: nil)
+            NSLayoutConstraint.activate([
+                backdrop.leadingAnchor.constraint(equalTo: content.leadingAnchor),
+                backdrop.trailingAnchor.constraint(equalTo: content.trailingAnchor),
+                backdrop.topAnchor.constraint(equalTo: content.topAnchor),
+                backdrop.bottomAnchor.constraint(equalTo: content.bottomAnchor)
+            ])
+        }
+
+        window.isOpaque = !transparent
+        window.backgroundColor = transparent ? .clear : .windowBackgroundColor
+    }
+
+    /// nil for the Clear style: the window itself is see-through.
+    private static func makeBackdrop(_ style: WindowTransparency.Style) -> NSView? {
+        switch style {
+        case .clear:
+            return nil
+        case .glass, .clearGlass:
+            if #available(macOS 26.0, *) {
+                let glass = NSGlassEffectView()
+                glass.style = style == .clearGlass ? .clear : .regular
+                return glass
+            }
+            return frosted()
+        case .frosted:
+            return frosted()
+        }
+    }
+
+    /// fullScreenUI is one of the few behind-window materials that isn't nearly
+    /// opaque in light mode (underWindowBackground/windowBackground look solid white).
+    private static func frosted() -> NSView {
+        let view = NSVisualEffectView()
+        view.material = .fullScreenUI
+        view.blendingMode = .behindWindow
+        view.state = .active
+        return view
     }
 
     var editor: EditorView {

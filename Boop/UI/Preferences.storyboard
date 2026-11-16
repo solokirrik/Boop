@@ -58,7 +58,7 @@
             <objects>
                 <viewController title="Colors" id="dVd-GH-dN9" customClass="ThemeSettingsViewController" customModule="Boop" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="WPr-zk-ei7">
-                        <rect key="frame" x="0.0" y="0.0" width="410" height="122"/>
+                        <rect key="frame" x="0.0" y="0.0" width="410" height="159"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k3D-AP-zSR">
@@ -122,7 +122,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="130" id="tr12-Wt-012"/>
                                         </constraints>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Window Transparency:" id="tr5-Wt-005">
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Transparency:" id="tr5-Wt-005">
                                             <font key="font" usesAppearanceFont="YES"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -139,6 +139,8 @@
                                                     <menuItem title="10%" id="trA-Wt-002"/>
                                                     <menuItem title="20%" id="trA-Wt-003"/>
                                                     <menuItem title="30%" id="trA-Wt-004"/>
+                                                    <menuItem title="40%" id="trA-Wt-005"/>
+                                                    <menuItem title="50%" id="trA-Wt-006"/>
                                                 </items>
                                             </menu>
                                             <connections>
@@ -168,11 +170,67 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
+                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bgS-Wd-002">
+                                <rect key="frame" x="55" y="30" width="300" height="25"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bgS-Wd-001">
+                                        <rect key="frame" x="-2" y="5" width="134" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="130" id="bgS-Wd-003"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Background:" id="bgS-Wd-007">
+                                            <font key="font" usesAppearanceFont="YES"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bgS-Wd-004">
+                                        <rect key="frame" x="137" y="-1" width="167" height="25"/>
+                                        <popUpButtonCell key="cell" type="push" title="Frosted" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" arrowPosition="arrowAtCenter" selectedItem="bgM-Wd-001" id="bgS-Wd-009">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="menu"/>
+                                            <menu key="menu" id="bgS-Wd-008">
+                                                <items>
+                                                    <menuItem title="Frosted" state="on" id="bgM-Wd-001"/>
+                                                    <menuItem title="Glass" id="bgM-Wd-002"/>
+                                                    <menuItem title="Clear Glass" id="bgM-Wd-003"/>
+                                                    <menuItem title="Clear" id="bgM-Wd-004"/>
+                                                </items>
+                                            </menu>
+                                            <connections>
+                                                <binding destination="Vhg-Lq-eNf" name="selectedIndex" keyPath="values.boopWindowBackdrop" id="bgS-Wd-000">
+                                                    <dictionary key="options">
+                                                        <integer key="NSNoSelectionPlaceholder" value="0"/>
+                                                        <integer key="NSNullPlaceholder" value="0"/>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </popUpButtonCell>
+                                        <connections>
+                                            <action selector="didChangeTransparency:" target="dVd-GH-dN9" id="bgS-Wd-010"/>
+                                            <binding destination="Vhg-Lq-eNf" name="selectedIndex" keyPath="values.boopWindowBackdrop" id="bgS-Wd-006"/>
+                                        </connections>
+                                    </popUpButton>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="bgS-Wd-005"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="k3D-AP-zSR" firstAttribute="top" secondItem="WPr-zk-ei7" secondAttribute="top" constant="30" id="9sd-KE-Wye"/>
                             <constraint firstItem="tr11-Wt-011" firstAttribute="top" secondItem="k3D-AP-zSR" secondAttribute="bottom" constant="12" id="trB-Wt-001"/>
-                            <constraint firstAttribute="bottom" secondItem="tr11-Wt-011" secondAttribute="bottom" constant="30" id="Jil-j6-89x"/>
+                            <constraint firstItem="bgS-Wd-002" firstAttribute="top" secondItem="tr11-Wt-011" secondAttribute="bottom" constant="12" id="bgC-Wd-001"/>
+                            <constraint firstAttribute="bottom" secondItem="bgS-Wd-002" secondAttribute="bottom" constant="30" id="Jil-j6-89x"/>
+                            <constraint firstItem="bgS-Wd-002" firstAttribute="leading" secondItem="k3D-AP-zSR" secondAttribute="leading" id="bgC-Wd-002"/>
                             <constraint firstItem="tr11-Wt-011" firstAttribute="leading" secondItem="k3D-AP-zSR" secondAttribute="leading" id="trB-Wt-002"/>
                             <constraint firstItem="k3D-AP-zSR" firstAttribute="leading" secondItem="WPr-zk-ei7" secondAttribute="leading" constant="55" id="Us3-Oj-kCr"/>
                             <constraint firstAttribute="trailing" secondItem="k3D-AP-zSR" secondAttribute="trailing" constant="55" id="q6u-8N-8qS"/>

@@ -41,17 +41,30 @@ class ThemeSettingsViewController: NSViewController {
     }
 }
 
-/// "Window Transparency" setting: Off, 10%, 20% or 30% of the editor background shows
-/// the blurred desktop behind the window. Off when "Reduce transparency" is on.
+/// "Window Transparency" setting: Off or 10–50% of the editor background shows what's
+/// behind the window, in one of four styles. Off when "Reduce transparency" is on.
 enum WindowTransparency {
     static let userPreferencesKey = "boopWindowTransparency"
+    static let styleUserPreferencesKey = "boopWindowBackdrop"
     static let didChangeNotification = Notification.Name("BoopWindowTransparencyDidChange")
 
-    /// 0, 0.1, 0.2 or 0.3
+    /// What's behind the window looks like this (all public APIs).
+    enum Style: Int {
+        case frosted      // strong system blur: only color comes through
+        case glass        // Liquid Glass, lighter blur: shapes stay recognizable (macOS 26+)
+        case clearGlass   // Liquid Glass "clear": see-through with a glass sheen (macOS 26+)
+        case clear        // no blur, like Terminal
+    }
+
+    /// 0, 0.1 … 0.5
     static var level: CGFloat {
         guard !NSWorkspace.shared.accessibilityDisplayShouldReduceTransparency else { return 0 }
-        let index = min(max(UserDefaults.standard.integer(forKey: userPreferencesKey), 0), 3)
+        let index = min(max(UserDefaults.standard.integer(forKey: userPreferencesKey), 0), 5)
         return CGFloat(index) / 10
+    }
+
+    static var style: Style {
+        return Style(rawValue: UserDefaults.standard.integer(forKey: styleUserPreferencesKey)) ?? .frosted
     }
 
     static func didChange() {
