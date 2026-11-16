@@ -14,7 +14,7 @@ const yaml = require('@boop/js-yaml')
 function main(input) {
 
 	try {
-        input.text = JSON.stringify(yaml.safeLoad(input.text), null, 2)
+        input.text = JSON.stringify(yaml.load(input.text), null, 2)
 	}
 	catch(error) {
 		input.postError("Invalid YAML")

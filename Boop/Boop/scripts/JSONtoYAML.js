@@ -13,7 +13,7 @@ const yaml = require('@boop/js-yaml')
 
 function main(input) {
 	try {
-		input.text = yaml.safeDump(JSON.parse(input.text))
+		input.text = yaml.dump(JSON.parse(input.text))
 	}
 	catch(error) {
 		input.postError("Invalid JSON")

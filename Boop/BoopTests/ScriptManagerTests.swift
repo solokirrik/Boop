@@ -146,6 +146,33 @@ class ScriptManagerTests: XCTestCase {
         XCTAssertEqual(run("Minify CSS", "a , b > c { color : red ; } /* x */"), "a,b>c{color:red}")
     }
 
+    func testYAMLToJSON() {
+        XCTAssertEqual(run("YAML to JSON", "a: 1\nb:\n  - x\n  - 'é 😀'\n"), """
+            {
+              "a": 1,
+              "b": [
+                "x",
+                "é 😀"
+              ]
+            }
+            """)
+    }
+
+    func testJSONToYAML() {
+        XCTAssertEqual(run("JSON to YAML", #"{"a":1,"b":["x","é 😀"]}"#), "a: 1\nb:\n  - x\n  - é 😀\n")
+    }
+
+    func testCSVToJSON() {
+        XCTAssertEqual(run("CSV to JSON", "name,note\nAnn,\"a, \"\"b\"\"\""), """
+            [
+              {
+                "name": "Ann",
+                "note": "a, \\"b\\""
+              }
+            ]
+            """)
+    }
+
     func testFormatSQLKeepsStringLiterals() {
         XCTAssertEqual(run("Format SQL", "select a, b from t where s = 'a   b' and x in (select y from z)"), """
             select a,

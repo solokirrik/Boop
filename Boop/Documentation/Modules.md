@@ -81,8 +81,8 @@ Boop ships with a couple of modules, with the prefix `@boop/`, which you can use
 | `@boop/strings`    | `camelCase`, `kebabCase`, `snakeCase`, `lowerCase`, `startCase`, `words`, `deburr`, `size`, `escapeRegExp` |
 | `@boop/he`         | HTML escape/unescape (`encode`, `decode`); decode knows numeric and common named entities |
 | `@boop/format`     | `xml`, `xmlmin`, `css`, `cssmin`, `sql`, `sqlmin`; `xml` and `xmlmin` throw on malformed XML |
-| `@boop/js-yaml`    | Parses and Stringifies YAML objects |
+| `@boop/js-yaml`    | js-yaml 5.5.0: `load` and `dump` (`safeLoad`/`safeDump` were removed in js-yaml 4; `load` and `dump` are safe by default) |
 | `@boop/hashes`     | MD5, SHA1, SHA256, SHA512 (`new Hashes.SHA256().hex(text)`, also `b64`, `hex_hmac`, `b64_hmac`) |
-| `@boop/papaparse`  | CSV parser |
+| `@boop/papaparse`  | Papa Parse 5.7.1 CSV parser (`Papa.parse`, `Papa.unparse`) |
 
 If you need a new module that you think could be used by more scripts, feel free to open a PR adding more functionality.
