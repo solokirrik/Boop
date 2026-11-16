@@ -158,9 +158,9 @@ final class EditorView: NSView {
             guard let self = self, generation == self.highlightGeneration else { return }
             let source = storage.string // copy; lexing happens off the main thread
             let theme = self.theme
-            EditorView.highlightQueue.async {
+            EditorView.highlightQueue.async { [weak self] in
                 let paint = SyntaxHighlighter.paint(source)
-                DispatchQueue.main.async { [weak self] in
+                DispatchQueue.main.async {
                     // Drop results if the text changed while lexing
                     guard let self = self, generation == self.highlightGeneration,
                           storage.string == source else { return }

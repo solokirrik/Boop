@@ -96,7 +96,7 @@ class Script: NSObject {
     }
 }
 
-protocol ScriptDelegate: class {
+protocol ScriptDelegate: AnyObject {
     func onScriptError(message: String)
     func onScriptInfo(message: String)
 }
