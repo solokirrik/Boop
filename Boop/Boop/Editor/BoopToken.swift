@@ -2,17 +2,14 @@
 //  BoopToken.swift
 //  Boop
 //
-//  Created by Ivan on 1/27/19.
+//  Created by Ivan on 1/26/19.
 //
 
-import Cocoa
-import SavannaKit
+import Foundation
 
-class BoopToken: Token, CustomStringConvertible {
-    
-    
-    
-    public enum TokenType: String {
+struct BoopToken {
+
+    enum TokenType: String {
         case comment
         case string
         case attribute
@@ -20,29 +17,9 @@ class BoopToken: Token, CustomStringConvertible {
         case number
         case extra
     }
-    
-    // There is no support for placeholder yet or planned.
-    var isEditorPlaceholder = false
-    
-    // Plain tokens are not even parsed in the first place.
-    var isPlain = false
-    
-    var isActive = true
-    var isGreedy: Bool
-    
-    var range: NSRange
-    var type: BoopToken.TokenType
-    
-    init(type:TokenType, range: NSRange, greedy: Bool = false) {
-        self.range = range
-        self.type = type
-        self.isGreedy = greedy
-    }
-    
 
-    var description: String {
-        return type.rawValue
-    }
-    
-    
+    let type: TokenType
+    let range: NSRange
+    /// Greedy tokens (strings, comments) switch off tokens that start inside them.
+    let isGreedy: Bool
 }

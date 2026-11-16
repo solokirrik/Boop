@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB0000010000000000000032 /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000031 /* EditorView.swift */; };
+		BB0000010000000000000033 /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000031 /* EditorView.swift */; };
 		BB0000010000000000000022 /* ScriptSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000021 /* ScriptSearch.swift */; };
 		BB0000010000000000000023 /* ScriptSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000021 /* ScriptSearch.swift */; };
 		BB0000010000000000000024 /* ScriptSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000021 /* ScriptSearch.swift */; };
@@ -76,10 +78,6 @@
 		2C60A56224871730006496BA /* UpdateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C60A4E524870678006496BA /* UpdateTextField.swift */; };
 		2C873BE12697C2A800D9A3F0 /* PopoverContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C873BE02697C2A800D9A3F0 /* PopoverContainerView.swift */; };
 		2C873BE42697C34200D9A3F0 /* PopoverContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C873BE02697C2A800D9A3F0 /* PopoverContainerView.swift */; };
-		2C8BE181249EBADC00099B73 /* SavannaKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2C8BE180249EBADC00099B73 /* SavannaKit */; };
-		2C8BE182249EBADC00099B73 /* SavannaKit in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2C8BE180249EBADC00099B73 /* SavannaKit */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		2C8BE184249EBAEC00099B73 /* SavannaKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2C8BE183249EBAEC00099B73 /* SavannaKit */; };
-		2C8BE185249EBAEC00099B73 /* SavannaKit in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2C8BE183249EBAEC00099B73 /* SavannaKit */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2C9118B623406B530018916F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9118B523406B530018916F /* Colors.swift */; };
 		2C9761D52214E11600AFF8CD /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 2C9761D42214E11600AFF8CD /* scripts */; };
 		2C9761D92214E3B500AFF8CD /* ScriptsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9761D82214E3B500AFF8CD /* ScriptsTableViewController.swift */; };
@@ -110,7 +108,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2C8BE182249EBADC00099B73 /* SavannaKit in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -121,7 +118,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2C8BE185249EBAEC00099B73 /* SavannaKit in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,6 +125,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BB0000010000000000000031 /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
 		BB0000010000000000000021 /* ScriptSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptSearch.swift; sourceTree = "<group>"; };
 		BB0000010000000000000011 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		BB0000010000000000000001 /* BoopWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoopWindowController.swift; sourceTree = "<group>"; };
@@ -156,7 +153,6 @@
 		2C2066A121FE47090082570E /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		2C2066A321FE47CE0082570E /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
 		2C2066A521FE53870082570E /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
-		2C3B003D22E3775300BBD4D0 /* SavannaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SavannaKit.framework; path = ../../../Carthage/Build/Mac/SavannaKit.framework; sourceTree = "<group>"; };
 		2C53B6DF226D404E00DC6861 /* ScriptExecution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptExecution.swift; sourceTree = "<group>"; };
 		2C5770D4249727A600B38470 /* BoopRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BoopRelease.entitlements; sourceTree = "<group>"; };
 		2C5ED41D2357F67200322893 /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
@@ -187,7 +183,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C8BE181249EBADC00099B73 /* SavannaKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +190,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C8BE184249EBAEC00099B73 /* SavannaKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,7 +249,6 @@
 		2C20668321FD62D00082570E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2C3B003D22E3775300BBD4D0 /* SavannaKit.framework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -277,6 +270,7 @@
 			children = (
 				2C20668E21FD64580082570E /* Themes */,
 				2C20669321FD6F400082570E /* BoopLexer.swift */,
+				BB0000010000000000000031 /* EditorView.swift */,
 				2C20669B21FE3E060082570E /* BoopToken.swift */,
 			);
 			path = Editor;
@@ -392,7 +386,6 @@
 			);
 			name = Boop;
 			packageProductDependencies = (
-				2C8BE180249EBADC00099B73 /* SavannaKit */,
 			);
 			productName = Boop;
 			productReference = 2C20667221FD628E0082570E /* Boop.app */;
@@ -413,7 +406,6 @@
 			);
 			name = "Boop (App Store)";
 			packageProductDependencies = (
-				2C8BE183249EBAEC00099B73 /* SavannaKit */,
 			);
 			productName = Boop;
 			productReference = 2C60A56024871273006496BA /* Boop.app */;
@@ -447,7 +439,6 @@
 			);
 			mainGroup = 2C20666921FD628E0082570E;
 			packageReferences = (
-				2C8BE17F249EBADC00099B73 /* XCRemoteSwiftPackageReference "savannakit" */,
 			);
 			productRefGroup = 2C20667321FD628E0082570E /* Products */;
 			projectDirPath = "";
@@ -539,6 +530,7 @@
 				2C9761E12214E68D00AFF8CD /* ScriptTableViewCell.swift in Sources */,
 				2CA245DC224822EA00586DFD /* ScriptTableView.swift in Sources */,
 				2C20669521FD6F400082570E /* BoopLexer.swift in Sources */,
+				BB0000010000000000000032 /* EditorView.swift in Sources */,
 				2C20669C21FE3E060082570E /* BoopToken.swift in Sources */,
 				2C2066A621FE53870082570E /* SearchField.swift in Sources */,
 				2C2066A421FE47CE0082570E /* PopoverView.swift in Sources */,
@@ -575,6 +567,7 @@
 				2C60A54624871273006496BA /* ScriptTableViewCell.swift in Sources */,
 				2C60A54724871273006496BA /* ScriptTableView.swift in Sources */,
 				2C60A54824871273006496BA /* BoopLexer.swift in Sources */,
+				BB0000010000000000000033 /* EditorView.swift in Sources */,
 				2C60A54924871273006496BA /* BoopToken.swift in Sources */,
 				2C60A54A24871273006496BA /* SearchField.swift in Sources */,
 				2C60A54B24871273006496BA /* PopoverView.swift in Sources */,
@@ -941,27 +934,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2C8BE17F249EBADC00099B73 /* XCRemoteSwiftPackageReference "savannakit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/IvanMathy/savannakit";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2C8BE180249EBADC00099B73 /* SavannaKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2C8BE17F249EBADC00099B73 /* XCRemoteSwiftPackageReference "savannakit" */;
-			productName = SavannaKit;
-		};
-		2C8BE183249EBAEC00099B73 /* SavannaKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2C8BE17F249EBADC00099B73 /* XCRemoteSwiftPackageReference "savannakit" */;
-			productName = SavannaKit;
-		};
 /* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2C20666A21FD628E0082570E /* Project object */;

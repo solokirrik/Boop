@@ -6,7 +6,6 @@
 //
 
 import Cocoa
-import SavannaKit
 
 /// One editor window. Each window is one native macOS tab.
 class BoopWindowController: NSWindowController, NSWindowDelegate, NSMenuItemValidation {
@@ -56,7 +55,7 @@ class BoopWindowController: NSWindowController, NSWindowDelegate, NSMenuItemVali
         }
     }
 
-    var editor: SyntaxTextView {
+    var editor: EditorView {
         return mainViewController.editorView
     }
 

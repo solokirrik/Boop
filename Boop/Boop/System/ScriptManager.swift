@@ -6,7 +6,6 @@
 //
 
 import Cocoa
-import SavannaKit
 
 
 class ScriptManager: NSObject {
@@ -130,21 +129,21 @@ class ScriptManager: NSObject {
             .map { $0.0 }
     }
 
-    func runScript(_ script: Script, into editor: SyntaxTextView, status: StatusView?) {
+    func runScript(_ script: Script, into textView: NSTextView, status: StatusView?) {
 
         currentStatus = status
-        let fullText = editor.text
+        let fullText = textView.string
         
         lastScript = script
         
-        guard let ranges = editor.contentTextView.selectedRanges as? [NSRange], ranges.reduce(0, { $0 + $1.length }) > 0 else {
+        guard let ranges = textView.selectedRanges as? [NSRange], ranges.reduce(0, { $0 + $1.length }) > 0 else {
             
-            let insertPosition = (editor.contentTextView.selectedRanges.first as? NSRange)?.location
+            let insertPosition = (textView.selectedRanges.first as? NSRange)?.location
             let result = runScript(script, fullText: fullText, insertIndex: insertPosition)
             // No selection, run on full text
             
-            let unicodeSafeFullTextLength = editor.contentTextView.textStorage?.length ?? fullText.count
-            replaceText(ranges: [NSRange(location: 0, length: unicodeSafeFullTextLength)], values: [result], editor: editor)
+            let unicodeSafeFullTextLength = textView.textStorage?.length ?? fullText.count
+            replaceText(ranges: [NSRange(location: 0, length: unicodeSafeFullTextLength)], values: [result], textView: textView)
             
             return
         }
@@ -162,15 +161,12 @@ class ScriptManager: NSObject {
             
         }
         
-        replaceText(ranges: ranges, values: values, editor: editor)
+        replaceText(ranges: ranges, values: values, textView: textView)
         
         
     }
     
-    private func replaceText(ranges: [NSRange], values: [String], editor: SyntaxTextView) {
-        
-        
-        let textView = editor.contentTextView
+    private func replaceText(ranges: [NSRange], values: [String], textView: NSTextView) {
         
         // Since we have to replace each selection one by one, after each
         // occurence the whole text shifts around a bit, and therefore the
@@ -219,13 +215,13 @@ class ScriptManager: NSObject {
         return scriptExecution.text ?? ""
     }
     
-    func runScriptAgain(editor: SyntaxTextView, status: StatusView?) {
+    func runScriptAgain(textView: NSTextView, status: StatusView?) {
         guard let script = lastScript else {
             NSSound.beep()
             return
         }
 
-        runScript(script, into: editor, status: status)
+        runScript(script, into: textView, status: status)
     }
 
     func reloadScripts(status: StatusView?) {

@@ -6,7 +6,6 @@
 //
 
 import Cocoa
-import SavannaKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {

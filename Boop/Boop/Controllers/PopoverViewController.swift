@@ -6,7 +6,6 @@
 //
 
 import Cocoa
-import SavannaKit
 
 fileprivate let kVKTab = 0x30
 fileprivate let kVKB = 0x0B
@@ -45,7 +44,7 @@ class PopoverViewController: NSViewController {
     @IBOutlet weak var overlayView: OverlayView!
     @IBOutlet weak var popoverView: PopoverContainerView!
     @IBOutlet weak var searchField: SearchField!
-    @IBOutlet weak var editorView: SyntaxTextView!
+    @IBOutlet weak var editorView: EditorView!
     @IBOutlet weak var statusView: StatusView!
 
     @IBOutlet weak var tableView: ScriptTableView!
@@ -202,7 +201,7 @@ class PopoverViewController: NSViewController {
     }
 
     func runScriptAgain() {
-        scriptManager.runScriptAgain(editor: editorView, status: statusView)
+        scriptManager.runScriptAgain(textView: editorView.contentTextView, status: statusView)
     }
 
     /// Called when this window's tab closes.
@@ -222,7 +221,7 @@ class PopoverViewController: NSViewController {
         hide()
 
         // Run the script afterwards in case we need to show a status
-        scriptManager.runScript(script, into: editorView, status: statusView)
+        scriptManager.runScript(script, into: editorView.contentTextView, status: statusView)
     }
 
     /// Height of the results list: up to 5 visible rows (45pt + 2pt spacing)

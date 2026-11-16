@@ -6,11 +6,10 @@
 //
 
 import Cocoa
-import SavannaKit
 
 class MainViewController: NSViewController {
 
-    @IBOutlet weak var editorView: SyntaxTextView!
+    @IBOutlet weak var editorView: EditorView!
 
     /// Called on every user edit with the editor's full text.
     var onTextChange: ((String) -> Void)?
@@ -20,8 +19,6 @@ class MainViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        installCompatibleLayoutManager()
 
         editorView.delegate = self
         editorView.contentTextView.selectedTextAttributes = [.backgroundColor: NSColor.selectedTextBackgroundColor]
@@ -52,21 +49,6 @@ class MainViewController: NSViewController {
         updateEmptyHint()
     }
 
-    private func installCompatibleLayoutManager() {
-        guard let textStorage = editorView.contentTextView.textStorage,
-              let textContainer = editorView.contentTextView.textContainer,
-              let currentLayoutManager = editorView.contentTextView.layoutManager,
-              let containerIndex = currentLayoutManager.textContainers.firstIndex(where: { $0 === textContainer }) else {
-            return
-        }
-
-        let layoutManager = NSLayoutManager()
-        currentLayoutManager.removeTextContainer(at: containerIndex)
-        textStorage.removeLayoutManager(currentLayoutManager)
-        textStorage.addLayoutManager(layoutManager)
-        layoutManager.addTextContainer(textContainer)
-    }
-
     func clear() {
         let textView = editorView.contentTextView
         textView.textStorage?.beginEditing()
@@ -84,27 +66,11 @@ class MainViewController: NSViewController {
     }
 }
 
-extension MainViewController: SyntaxTextViewDelegate {
-    func theme(for appearance: NSAppearance) -> SyntaxColorTheme {
-        return DefaultTheme(appearance: appearance)
-    }
-
-    func didChangeText(_ syntaxTextView: SyntaxTextView) {
+extension MainViewController: EditorViewDelegate {
+    func editorDidChangeText(_ editor: EditorView) {
         updateEmptyHint()
         guard !isLoading else { return }
-        onTextChange?(syntaxTextView.contentTextView.string)
-    }
-
-    func didChangeSelectedRange(_ syntaxTextView: SyntaxTextView, selectedRange: NSRange) {
-
-    }
-
-    func didChangeFont(_ font: Font) {
-        //
-    }
-
-    func lexerForSource(_ source: String) -> Lexer {
-        return BoopLexer()
+        onTextChange?(editor.text)
     }
 }
 
