@@ -87,6 +87,10 @@ final class EditorView: NSView {
         textView.isAutomaticDashSubstitutionEnabled = false
         textView.isAutomaticTextReplacementEnabled = false
         textView.isAutomaticSpellingCorrectionEnabled = false
+        // No Apple Intelligence Writing Tools button: rewriting prose isn't what a code scratchpad is for
+        if #available(macOS 15.0, *) {
+            textView.writingToolsBehavior = .none
+        }
 
         scrollView.documentView = textView
         applyTheme()

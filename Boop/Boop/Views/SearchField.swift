@@ -13,6 +13,9 @@ class SearchField: NSTextField {
         super.awakeFromNib()
         self.drawsBackground = false
         self.isBordered = false
+        if #available(macOS 15.2, *) {
+            self.allowsWritingTools = false
+        }
     }
 
     override func draw(_ dirtyRect: NSRect) {
