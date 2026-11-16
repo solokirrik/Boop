@@ -16,6 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillFinishLaunching(_ notification: Notification) {
         ThemeSettingsViewController.applyTheme()
+        WindowTransparency.observeAccessibility()
         NSApp.servicesProvider = self
     }
 

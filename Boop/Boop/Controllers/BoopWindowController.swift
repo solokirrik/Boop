@@ -49,10 +49,70 @@ class BoopWindowController: NSWindowController, NSWindowDelegate, NSMenuItemVali
             }
         }
 
+        installBackdrop()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateBackdrop),
+                                               name: WindowTransparency.didChangeNotification, object: nil)
+
         mainViewController.onTextChange = { [weak self] text in
             guard let self = self else { return }
             WorkspaceController.shared.updateContent(text, forTab: self.tabID)
         }
+    }
+
+    // MARK: Transparency
+
+    /// Blurs what's behind the window; the editor's background lets it through.
+    private let backdrop: NSVisualEffectView = {
+        let view = NSVisualEffectView()
+        view.material = .underWindowBackground
+        view.blendingMode = .behindWindow
+        view.state = .active
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    private func installBackdrop() {
+        guard let window = window, let content = window.contentView else { return }
+
+        // Content runs under the title and tab bar so they blur it (like Safari);
+        // the editor, overlay and picker still start below the bars.
+        window.styleMask.insert(.fullSizeContentView)
+        if let guide = window.contentLayoutGuide as? NSLayoutGuide {
+            pinTops(of: content.subviews, in: content, to: guide.topAnchor)
+        }
+
+        content.addSubview(backdrop, positioned: .below, relativeTo: nil)
+        NSLayoutConstraint.activate([
+            backdrop.leadingAnchor.constraint(equalTo: content.leadingAnchor),
+            backdrop.trailingAnchor.constraint(equalTo: content.trailingAnchor),
+            backdrop.topAnchor.constraint(equalTo: content.topAnchor),
+            backdrop.bottomAnchor.constraint(equalTo: content.bottomAnchor)
+        ])
+        updateBackdrop()
+    }
+
+    /// Moves "top = content top + c" constraints from the xib to the given anchor.
+    private func pinTops(of views: [NSView], in content: NSView, to anchor: NSLayoutYAxisAnchor) {
+        for view in views {
+            for constraint in content.constraints {
+                let first = constraint.firstItem as AnyObject?, second = constraint.secondItem as AnyObject?
+                guard constraint.firstAttribute == .top, constraint.secondAttribute == .top else { continue }
+                if first === view, second === content {
+                    constraint.isActive = false
+                    view.topAnchor.constraint(equalTo: anchor, constant: constraint.constant).isActive = true
+                } else if first === content, second === view {
+                    constraint.isActive = false
+                    view.topAnchor.constraint(equalTo: anchor, constant: -constraint.constant).isActive = true
+                }
+            }
+        }
+    }
+
+    @objc private func updateBackdrop() {
+        let transparent = WindowTransparency.level > 0
+        backdrop.isHidden = !transparent
+        window?.isOpaque = !transparent
+        window?.backgroundColor = transparent ? .clear : .windowBackgroundColor
     }
 
     var editor: EditorView {

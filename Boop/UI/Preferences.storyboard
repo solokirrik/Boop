@@ -32,7 +32,7 @@
             <objects>
                 <tabViewController selectedTabViewItemIndex="0" tabStyle="toolbar" id="YGr-Uf-ZBE" customClass="PreferencesTabViewController" customModule="Boop" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
-                        <tabViewItem label="Scripts" identifier="" image="text.and.command.macwindow" catalog="system" id="drV-oE-7k3"/>
+                        <tabViewItem label="Scripts" identifier="" image="text.and.command.interface.window" catalog="system" id="drV-oE-7k3"/>
                         <tabViewItem label="Colors" image="paintpalette" catalog="system" id="OgA-dF-Ylu"/>
                     </tabViewItems>
                     <tabView key="tabView" type="noTabsNoBorder" id="nRh-fE-4La">
@@ -58,7 +58,7 @@
             <objects>
                 <viewController title="Colors" id="dVd-GH-dN9" customClass="ThemeSettingsViewController" customModule="Boop" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="WPr-zk-ei7">
-                        <rect key="frame" x="0.0" y="0.0" width="410" height="85"/>
+                        <rect key="frame" x="0.0" y="0.0" width="410" height="122"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k3D-AP-zSR">
@@ -114,10 +114,66 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
+                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tr11-Wt-011">
+                                <rect key="frame" x="55" y="30" width="300" height="25"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tr10-Wt-010">
+                                        <rect key="frame" x="-2" y="5" width="134" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="130" id="tr12-Wt-012"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Window Transparency:" id="tr5-Wt-005">
+                                            <font key="font" usesAppearanceFont="YES"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tr13-Wt-013">
+                                        <rect key="frame" x="137" y="-1" width="167" height="25"/>
+                                        <popUpButtonCell key="cell" type="push" title="Off" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" arrowPosition="arrowAtCenter" selectedItem="trA-Wt-001" id="tr7-Wt-007">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="menu"/>
+                                            <menu key="menu" id="tr6-Wt-006">
+                                                <items>
+                                                    <menuItem title="Off" state="on" id="trA-Wt-001"/>
+                                                    <menuItem title="10%" id="trA-Wt-002"/>
+                                                    <menuItem title="20%" id="trA-Wt-003"/>
+                                                    <menuItem title="30%" id="trA-Wt-004"/>
+                                                </items>
+                                            </menu>
+                                            <connections>
+                                                <binding destination="Vhg-Lq-eNf" name="selectedIndex" keyPath="values.boopWindowTransparency" id="tr1-Wt-001">
+                                                    <dictionary key="options">
+                                                        <integer key="NSNoSelectionPlaceholder" value="0"/>
+                                                        <integer key="NSNullPlaceholder" value="0"/>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </popUpButtonCell>
+                                        <connections>
+                                            <action selector="didChangeTransparency:" target="dVd-GH-dN9" id="tr8-Wt-008"/>
+                                            <binding destination="Vhg-Lq-eNf" name="selectedIndex" keyPath="values.boopWindowTransparency" id="tr4-Wt-004"/>
+                                        </connections>
+                                    </popUpButton>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="tr3-Wt-003"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="k3D-AP-zSR" firstAttribute="top" secondItem="WPr-zk-ei7" secondAttribute="top" constant="30" id="9sd-KE-Wye"/>
-                            <constraint firstAttribute="bottom" secondItem="k3D-AP-zSR" secondAttribute="bottom" constant="30" id="Jil-j6-89x"/>
+                            <constraint firstItem="tr11-Wt-011" firstAttribute="top" secondItem="k3D-AP-zSR" secondAttribute="bottom" constant="12" id="trB-Wt-001"/>
+                            <constraint firstAttribute="bottom" secondItem="tr11-Wt-011" secondAttribute="bottom" constant="30" id="Jil-j6-89x"/>
+                            <constraint firstItem="tr11-Wt-011" firstAttribute="leading" secondItem="k3D-AP-zSR" secondAttribute="leading" id="trB-Wt-002"/>
                             <constraint firstItem="k3D-AP-zSR" firstAttribute="leading" secondItem="WPr-zk-ei7" secondAttribute="leading" constant="55" id="Us3-Oj-kCr"/>
                             <constraint firstAttribute="trailing" secondItem="k3D-AP-zSR" secondAttribute="trailing" constant="55" id="q6u-8N-8qS"/>
                             <constraint firstItem="k3D-AP-zSR" firstAttribute="centerX" secondItem="WPr-zk-ei7" secondAttribute="centerX" id="vZL-HY-g3b"/>
@@ -293,6 +349,6 @@
     </scenes>
     <resources>
         <image name="paintpalette" catalog="system" width="18" height="15"/>
-        <image name="text.and.command.macwindow" catalog="system" width="18" height="14"/>
+        <image name="text.and.command.interface.window" catalog="system" width="18" height="14"/>
     </resources>
 </document>

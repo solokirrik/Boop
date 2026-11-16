@@ -93,6 +93,12 @@ final class EditorView: NSView {
 
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange(_:)),
                                                name: NSText.didChangeNotification, object: textView)
+        NotificationCenter.default.addObserver(self, selector: #selector(transparencyDidChange),
+                                               name: WindowTransparency.didChangeNotification, object: nil)
+    }
+
+    @objc private func transparencyDidChange() {
+        contentTextView.backgroundColor = theme.backgroundColor.withAlphaComponent(1 - WindowTransparency.level)
     }
 
     deinit {
@@ -109,7 +115,7 @@ final class EditorView: NSView {
         let textView = contentTextView
         textView.font = theme.font
         textView.textColor = theme.textColor
-        textView.backgroundColor = theme.backgroundColor
+        textView.backgroundColor = theme.backgroundColor.withAlphaComponent(1 - WindowTransparency.level)
         textView.drawsBackground = true
         textView.insertionPointColor = theme.textColor
         textView.typingAttributes = theme.baseAttributes
