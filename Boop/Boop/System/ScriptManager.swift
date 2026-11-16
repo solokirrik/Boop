@@ -7,7 +7,6 @@
 
 import Cocoa
 import SavannaKit
-import Fuse
 
 
 class ScriptManager: NSObject {
@@ -24,7 +23,6 @@ class ScriptManager: NSObject {
     /// info messages arrive synchronously while a script runs, so they go here.
     private weak var currentStatus: StatusView?
     
-    let fuse = Fuse(threshold: 0.2)
     var scripts = [Script]()
     
     let currentAPIVersion = 1.0
@@ -111,37 +109,27 @@ class ScriptManager: NSObject {
     }
     
     func search(_ query: String) -> [Script] {
-        
-        
-        guard query.count < 20 else {
-            // If the query is too long let's just ignore it.
-            // It's probably the user pasting the wrong thing
-            // in the search box by accident which overwhelms
-            // fuse and crashes the app. Whoops!
-            
-            return []
-        }
-        
+        let query = query.trimmingCharacters(in: .whitespaces)
+
         guard !query.isEmpty else {
-            
             return scripts.sorted { left, right in
                 left.name ?? "" < right.name ?? ""
             }
         }
-        
-        let results = fuse.search(query, in: scripts)
-        
-        return results.filter { result in
-            result.score < 0.4 // Filter low quality results
-        }.sorted { left, right in
-            let leftScore = left.score - (scripts[left.index].bias ?? 0)
-            let rightScore = right.score - (scripts[right.index].bias ?? 0)
-            return leftScore < rightScore
-        }.map { result in
-            scripts[result.index]
+
+        // Pasting a paragraph into the search field by accident shouldn't match anything
+        guard query.count <= 64 else {
+            return []
         }
+
+        return scripts
+            .compactMap { script in script.searchScore(for: query).map { (script, $0) } }
+            .sorted { left, right in
+                left.1 != right.1 ? left.1 > right.1 : (left.0.name ?? "") < (right.0.name ?? "")
+            }
+            .map { $0.0 }
     }
-    
+
     func runScript(_ script: Script, into editor: SyntaxTextView, status: StatusView?) {
 
         currentStatus = status

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB0000010000000000000022 /* ScriptSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000021 /* ScriptSearch.swift */; };
+		BB0000010000000000000023 /* ScriptSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000021 /* ScriptSearch.swift */; };
+		BB0000010000000000000024 /* ScriptSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000021 /* ScriptSearch.swift */; };
 		BB0000010000000000000012 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000011 /* AppIcon.icon */; };
 		BB0000010000000000000013 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000011 /* AppIcon.icon */; };
 		BB0000010000000000000002 /* BoopWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000001 /* BoopWindowController.swift */; };
@@ -77,8 +80,6 @@
 		2C8BE182249EBADC00099B73 /* SavannaKit in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2C8BE180249EBADC00099B73 /* SavannaKit */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2C8BE184249EBAEC00099B73 /* SavannaKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2C8BE183249EBAEC00099B73 /* SavannaKit */; };
 		2C8BE185249EBAEC00099B73 /* SavannaKit in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2C8BE183249EBAEC00099B73 /* SavannaKit */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		2C8BE188249EBB3D00099B73 /* Fuse in Frameworks */ = {isa = PBXBuildFile; productRef = 2C8BE187249EBB3D00099B73 /* Fuse */; };
-		2C8BE18A249EBB4200099B73 /* Fuse in Frameworks */ = {isa = PBXBuildFile; productRef = 2C8BE189249EBB4200099B73 /* Fuse */; };
 		2C9118B623406B530018916F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9118B523406B530018916F /* Colors.swift */; };
 		2C9761D52214E11600AFF8CD /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 2C9761D42214E11600AFF8CD /* scripts */; };
 		2C9761D92214E3B500AFF8CD /* ScriptsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9761D82214E3B500AFF8CD /* ScriptsTableViewController.swift */; };
@@ -128,6 +129,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BB0000010000000000000021 /* ScriptSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptSearch.swift; sourceTree = "<group>"; };
 		BB0000010000000000000011 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		BB0000010000000000000001 /* BoopWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoopWindowController.swift; sourceTree = "<group>"; };
 		BB0000010000000000000004 /* WorkspaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceController.swift; sourceTree = "<group>"; };
@@ -168,7 +170,6 @@
 		2C9761DE2214E46800AFF8CD /* Script.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Script.swift; sourceTree = "<group>"; };
 		2C9761E02214E68D00AFF8CD /* ScriptTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptTableViewCell.swift; sourceTree = "<group>"; };
 		2CA245DB224822EA00586DFD /* ScriptTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptTableView.swift; sourceTree = "<group>"; };
-		2CB9D7F024319BAC00135424 /* Fuse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fuse.framework; path = ../../../Carthage/Build/Mac/Fuse.framework; sourceTree = "<group>"; };
 		2CC211C2236E3141007CECEE /* PreferencesTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTabViewController.swift; sourceTree = "<group>"; };
 		2CC211C4236FB5C1007CECEE /* ScriptsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptsSettingsViewController.swift; sourceTree = "<group>"; };
 		2CEC93F9249C2D600080B9B8 /* ThemeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSettingsViewController.swift; sourceTree = "<group>"; };
@@ -187,7 +188,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C8BE181249EBADC00099B73 /* SavannaKit in Frameworks */,
-				2C8BE188249EBB3D00099B73 /* Fuse in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,7 +196,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C8BE184249EBAEC00099B73 /* SavannaKit in Frameworks */,
-				2C8BE18A249EBB4200099B73 /* Fuse in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,7 +255,6 @@
 		2C20668321FD62D00082570E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2CB9D7F024319BAC00135424 /* Fuse.framework */,
 				2C3B003D22E3775300BBD4D0 /* SavannaKit.framework */,
 			);
 			path = Frameworks;
@@ -321,6 +319,7 @@
 		2C9761DA2214E44300AFF8CD /* System */ = {
 			isa = PBXGroup;
 			children = (
+				BB0000010000000000000021 /* ScriptSearch.swift */,
 				BB0000010000000000000004 /* WorkspaceController.swift */,
 				2C9761DD2214E45D00AFF8CD /* Models */,
 				AA0000010000000000000012 /* ScratchpadWorkspaceStore.swift */,
@@ -394,7 +393,6 @@
 			name = Boop;
 			packageProductDependencies = (
 				2C8BE180249EBADC00099B73 /* SavannaKit */,
-				2C8BE187249EBB3D00099B73 /* Fuse */,
 			);
 			productName = Boop;
 			productReference = 2C20667221FD628E0082570E /* Boop.app */;
@@ -416,7 +414,6 @@
 			name = "Boop (App Store)";
 			packageProductDependencies = (
 				2C8BE183249EBAEC00099B73 /* SavannaKit */,
-				2C8BE189249EBB4200099B73 /* Fuse */,
 			);
 			productName = Boop;
 			productReference = 2C60A56024871273006496BA /* Boop.app */;
@@ -451,7 +448,6 @@
 			mainGroup = 2C20666921FD628E0082570E;
 			packageReferences = (
 				2C8BE17F249EBADC00099B73 /* XCRemoteSwiftPackageReference "savannakit" */,
-				2C8BE186249EBB3D00099B73 /* XCRemoteSwiftPackageReference "fuse-swift" */,
 			);
 			productRefGroup = 2C20667321FD628E0082570E /* Products */;
 			projectDirPath = "";
@@ -505,6 +501,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB0000010000000000000024 /* ScriptSearch.swift in Sources */,
 				AA0000010000000000000005 /* ScratchpadWorkspace.swift in Sources */,
 				AA0000010000000000000006 /* ScratchpadWorkspaceStore.swift in Sources */,
 				2C17C67224271EBD005C911C /* ScriptManagerTests.swift in Sources */,
@@ -523,6 +520,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB0000010000000000000022 /* ScriptSearch.swift in Sources */,
 				BB0000010000000000000002 /* BoopWindowController.swift in Sources */,
 				BB0000010000000000000005 /* WorkspaceController.swift in Sources */,
 				AA0000010000000000000001 /* ScratchpadWorkspace.swift in Sources */,
@@ -557,6 +555,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB0000010000000000000023 /* ScriptSearch.swift in Sources */,
 				BB0000010000000000000003 /* BoopWindowController.swift in Sources */,
 				BB0000010000000000000006 /* WorkspaceController.swift in Sources */,
 				AA0000010000000000000003 /* ScratchpadWorkspace.swift in Sources */,
@@ -950,14 +949,6 @@
 				kind = branch;
 			};
 		};
-		2C8BE186249EBB3D00099B73 /* XCRemoteSwiftPackageReference "fuse-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/IvanMathy/fuse-swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -970,16 +961,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2C8BE17F249EBADC00099B73 /* XCRemoteSwiftPackageReference "savannakit" */;
 			productName = SavannaKit;
-		};
-		2C8BE187249EBB3D00099B73 /* Fuse */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2C8BE186249EBB3D00099B73 /* XCRemoteSwiftPackageReference "fuse-swift" */;
-			productName = Fuse;
-		};
-		2C8BE189249EBB4200099B73 /* Fuse */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2C8BE186249EBB3D00099B73 /* XCRemoteSwiftPackageReference "fuse-swift" */;
-			productName = Fuse;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

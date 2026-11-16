@@ -7,7 +7,6 @@
 
 import Foundation
 import JavaScriptCore
-import Fuse
 
 class Script: NSObject {
     
@@ -94,17 +93,6 @@ class Script: NSObject {
     private static func parseTerms(terms: String?) -> [String] {
         // reurn either an empty array or the terms split by comma space or semicolon
         terms?.components(separatedBy: CharacterSet(charactersIn: ",; ")) ?? [String]()
-    }
-}
-
-extension Script: Fuseable {
-    
-    var properties: [FuseProperty] {
-        return [
-            FuseProperty(value: name, weight: 0.9),
-            FuseProperty(value: desc, weight: 0.2)
-        ] + tags.map { tag in
-            FuseProperty(value: tag, weight: 0.4) }
     }
 }
 
