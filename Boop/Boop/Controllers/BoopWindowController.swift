@@ -114,11 +114,8 @@ class BoopWindowController: NSWindowController, NSWindowDelegate, NSMenuItemVali
         window.backgroundColor = transparent ? .clear : .windowBackgroundColor
     }
 
-    /// nil for the Clear style: the window itself is see-through.
     private static func makeBackdrop(_ style: WindowTransparency.Style) -> NSView? {
         switch style {
-        case .clear:
-            return nil
         case .glass, .clearGlass:
             if #available(macOS 26.0, *) {
                 let glass = NSGlassEffectView()
