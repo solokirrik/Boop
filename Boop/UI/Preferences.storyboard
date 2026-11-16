@@ -32,8 +32,8 @@
             <objects>
                 <tabViewController selectedTabViewItemIndex="0" tabStyle="toolbar" id="YGr-Uf-ZBE" customClass="PreferencesTabViewController" customModule="Boop" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
-                        <tabViewItem label="Scripts" identifier="" image="text.and.command.interface.window" catalog="system" id="drV-oE-7k3"/>
                         <tabViewItem label="Colors" image="paintpalette" catalog="system" id="OgA-dF-Ylu"/>
+                        <tabViewItem label="Scripts" identifier="" image="text.and.command.interface.window" catalog="system" id="drV-oE-7k3"/>
                     </tabViewItems>
                     <tabView key="tabView" type="noTabsNoBorder" id="nRh-fE-4La">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
@@ -45,8 +45,8 @@
                     </tabView>
                     <connections>
                         <outlet property="tabView" destination="nRh-fE-4La" id="Lf1-uB-6kn"/>
-                        <segue destination="oGW-Ve-Lv5" kind="relationship" relationship="tabItems" id="EhK-SX-Eff"/>
                         <segue destination="dVd-GH-dN9" kind="relationship" relationship="tabItems" id="ZZr-kK-3rR"/>
+                        <segue destination="oGW-Ve-Lv5" kind="relationship" relationship="tabItems" id="EhK-SX-Eff"/>
                     </connections>
                 </tabViewController>
                 <customObject id="cp6-kM-xr4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -201,7 +201,7 @@
                                 <constraints>
                                     <constraint firstItem="gID-hY-p1C" firstAttribute="width" secondItem="Dko-Nm-ITU" secondAttribute="width" id="1C0-aY-FKW"/>
                                     <constraint firstAttribute="trailing" secondItem="hG9-qb-Mm6" secondAttribute="trailing" id="DsZ-Yd-lhe"/>
-                                    <constraint firstAttribute="width" constant="400" id="Ic5-K4-NgK"/>
+                                    <constraint firstAttribute="width" constant="500" id="Ic5-K4-NgK"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
@@ -218,7 +218,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Dko-Nm-ITU" secondAttribute="trailing" constant="30" id="0Hi-lh-f6g"/>
                             <constraint firstItem="Dko-Nm-ITU" firstAttribute="leading" secondItem="F0t-rM-ABM" secondAttribute="leading" constant="30" id="bcb-Pm-VLS"/>
-                            <constraint firstAttribute="bottom" secondItem="Dko-Nm-ITU" secondAttribute="bottom" constant="20" id="ulI-G2-OMo"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Dko-Nm-ITU" secondAttribute="bottom" constant="20" id="ulI-G2-OMo"/>
                             <constraint firstItem="Dko-Nm-ITU" firstAttribute="top" secondItem="F0t-rM-ABM" secondAttribute="top" constant="20" symbolic="YES" id="yS7-W1-V3D"/>
                         </constraints>
                     </view>

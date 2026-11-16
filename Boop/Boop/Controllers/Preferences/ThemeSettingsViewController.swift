@@ -75,8 +75,8 @@ class ThemeSettingsViewController: NSViewController {
 
         view.addSubview(grid)
         NSLayoutConstraint.activate([
-            grid.topAnchor.constraint(equalTo: view.topAnchor, constant: 28),
-            grid.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -28),
+            grid.topAnchor.constraint(equalTo: view.topAnchor, constant: 36),
+            grid.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -28),
             grid.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 40),
             grid.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
@@ -87,7 +87,6 @@ class ThemeSettingsViewController: NSViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         refresh()
-        preferredContentSize = view.fittingSize
     }
 
     private func label(_ text: String) -> NSTextField {
