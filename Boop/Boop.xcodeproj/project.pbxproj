@@ -40,6 +40,8 @@
 		2C20667821FD62910082570E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C20667721FD62910082570E /* Assets.xcassets */; };
 		2C20667B21FD62910082570E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C20667921FD62910082570E /* MainMenu.xib */; };
 		2C20668B21FD63C90082570E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C20668921FD63C90082570E /* MainViewController.swift */; };
+		CA77A0010000000000000002 /* Catppuccin.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77A0010000000000000001 /* Catppuccin.swift */; };
+		CA77A0010000000000000003 /* Catppuccin.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77A0010000000000000001 /* Catppuccin.swift */; };
 		2C20669121FD64A20082570E /* DefaultTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C20668F21FD64A20082570E /* DefaultTheme.swift */; };
 		2C20669521FD6F400082570E /* BoopLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C20669321FD6F400082570E /* BoopLexer.swift */; };
 		2C20669A21FD76900082570E /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C20669921FD76900082570E /* StatusView.swift */; };
@@ -145,6 +147,7 @@
 		2C20667C21FD62910082570E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C20667D21FD62910082570E /* Boop.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Boop.entitlements; sourceTree = "<group>"; };
 		2C20668921FD63C90082570E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		CA77A0010000000000000001 /* Catppuccin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catppuccin.swift; sourceTree = "<group>"; };
 		2C20668F21FD64A20082570E /* DefaultTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTheme.swift; sourceTree = "<group>"; };
 		2C20669321FD6F400082570E /* BoopLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoopLexer.swift; sourceTree = "<group>"; };
 		2C20669921FD76900082570E /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
@@ -281,6 +284,7 @@
 			children = (
 				2C20668F21FD64A20082570E /* DefaultTheme.swift */,
 				2C9118B523406B530018916F /* Colors.swift */,
+				CA77A0010000000000000001 /* Catppuccin.swift */,
 			);
 			path = Themes;
 			sourceTree = "<group>";
@@ -524,6 +528,7 @@
 				2C2066A221FE47090082570E /* PopoverViewController.swift in Sources */,
 				2C9761DF2214E46800AFF8CD /* Script.swift in Sources */,
 				2C20669121FD64A20082570E /* DefaultTheme.swift in Sources */,
+				CA77A0010000000000000002 /* Catppuccin.swift in Sources */,
 				2C9761DC2214E45300AFF8CD /* ScriptManager.swift in Sources */,
 				2C20667621FD628E0082570E /* AppDelegate.swift in Sources */,
 				2C20669E21FE445E0082570E /* OverlayView.swift in Sources */,
@@ -560,6 +565,7 @@
 				2C60A54024871273006496BA /* Script.swift in Sources */,
 				2C9D045C24A2DAC600D27D20 /* ThemeSettingsViewController.swift in Sources */,
 				2C60A54224871273006496BA /* DefaultTheme.swift in Sources */,
+				CA77A0010000000000000003 /* Catppuccin.swift in Sources */,
 				2C60A54324871273006496BA /* ScriptManager.swift in Sources */,
 				2C60A54424871273006496BA /* AppDelegate.swift in Sources */,
 				2C873BE42697C34200D9A3F0 /* PopoverContainerView.swift in Sources */,

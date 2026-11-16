@@ -14,11 +14,15 @@ enum BoopColorScheme: Int {
     case dark
 }
 
-/// Settings > Colors: color scheme, window transparency and its background style.
+/// Settings > Colors: editor theme, color scheme, window transparency and its background style.
 class ThemeSettingsViewController: NSViewController {
     static let userPreferencesSchemeKey = "boopColorScheme"
 
     static func applyTheme() {
+        if let forced = EditorThemeChoice.current.appearance {
+            NSApp.appearance = NSAppearance(named: forced)
+            return
+        }
         switch BoopColorScheme(rawValue: UserDefaults.standard.integer(forKey: userPreferencesSchemeKey)) {
         case .dark:
             NSApp.appearance = NSAppearance(named: .darkAqua)
@@ -29,6 +33,7 @@ class ThemeSettingsViewController: NSViewController {
         }
     }
 
+    private let themePopup = NSPopUpButton(frame: .zero, pullsDown: false)
     private let schemeControl = NSSegmentedControl(labels: ["Default", "Light", "Dark"], trackingMode: .selectOne, target: nil, action: nil)
     private let backgroundControl = NSSegmentedControl(labels: ["Frosted", "Glass", "Clear Glass"], trackingMode: .selectOne, target: nil, action: nil)
     private let transparencySlider = NSSlider(value: 0, minValue: 0, maxValue: 100, target: nil, action: nil)
@@ -36,6 +41,16 @@ class ThemeSettingsViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        for choice in EditorThemeChoice.allCases {
+            themePopup.addItem(withTitle: choice.name)
+            themePopup.lastItem?.tag = choice.rawValue
+            if choice == .boop {
+                themePopup.menu?.addItem(.separator())
+            }
+        }
+        themePopup.target = self
+        themePopup.action = #selector(didChangeEditorTheme(_:))
 
         schemeControl.target = self
         schemeControl.action = #selector(didChangeColorTheme(_:))
@@ -61,6 +76,7 @@ class ThemeSettingsViewController: NSViewController {
         sliderRow.spacing = 8
 
         let grid = NSGridView(views: [
+            [label("Theme:"), themePopup],
             [label("Color Scheme:"), schemeControl],
             [label("Transparency:"), sliderRow],
             [label("Background:"), backgroundControl]
@@ -69,8 +85,8 @@ class ThemeSettingsViewController: NSViewController {
         grid.columnSpacing = 10
         grid.column(at: 0).xPlacement = .trailing
         grid.rowAlignment = .firstBaseline
-        grid.row(at: 1).yPlacement = .center
-        grid.row(at: 1).rowAlignment = .none
+        grid.row(at: 2).yPlacement = .center
+        grid.row(at: 2).rowAlignment = .none
         grid.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(grid)
@@ -98,6 +114,8 @@ class ThemeSettingsViewController: NSViewController {
     /// Shows the saved values.
     private func refresh() {
         let defaults = UserDefaults.standard
+        themePopup.selectItem(withTag: EditorThemeChoice.current.rawValue)
+        updateSchemeUI()
         schemeControl.selectedSegment = defaults.integer(forKey: ThemeSettingsViewController.userPreferencesSchemeKey)
         backgroundControl.selectedSegment = WindowTransparency.style.rawValue
         transparencySlider.integerValue = WindowTransparency.percent
@@ -113,6 +131,22 @@ class ThemeSettingsViewController: NSViewController {
     @IBAction func didChangeColorTheme(_ sender: Any) {
         UserDefaults.standard.set(schemeControl.selectedSegment, forKey: ThemeSettingsViewController.userPreferencesSchemeKey)
         ThemeSettingsViewController.applyTheme()
+    }
+
+    /// A Catppuccin flavor is light or dark by itself, so it overrides the Color Scheme.
+    private func updateSchemeUI() {
+        let theme = EditorThemeChoice.current
+        schemeControl.isEnabled = theme.appearance == nil
+        schemeControl.toolTip = theme.appearance == nil
+            ? "Default follows the system appearance"
+            : "\(theme.name) is always \(theme.appearance == .aqua ? "light" : "dark")"
+    }
+
+    @IBAction func didChangeEditorTheme(_ sender: Any) {
+        UserDefaults.standard.set(themePopup.selectedTag(), forKey: EditorThemeChoice.userPreferencesKey)
+        updateSchemeUI()
+        ThemeSettingsViewController.applyTheme()
+        EditorThemeChoice.didChange()
     }
 
     @IBAction func didChangeBackground(_ sender: Any) {
