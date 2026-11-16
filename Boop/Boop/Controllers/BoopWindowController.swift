@@ -62,9 +62,11 @@ class BoopWindowController: NSWindowController, NSWindowDelegate, NSMenuItemVali
     // MARK: Transparency
 
     /// Blurs what's behind the window; the editor's background lets it through.
+    /// fullScreenUI is one of the few behind-window materials that isn't nearly
+    /// opaque in light mode (underWindowBackground/windowBackground look solid white).
     private let backdrop: NSVisualEffectView = {
         let view = NSVisualEffectView()
-        view.material = .underWindowBackground
+        view.material = .fullScreenUI
         view.blendingMode = .behindWindow
         view.state = .active
         view.translatesAutoresizingMaskIntoConstraints = false
