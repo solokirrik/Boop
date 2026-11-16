@@ -9,7 +9,7 @@
 	}
 **/
 
-const { kebabCase } = require('@boop/lodash.boop')
+const { kebabCase } = require('@boop/strings')
 
 function main(input) {
 	

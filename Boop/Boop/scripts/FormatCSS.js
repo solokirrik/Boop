@@ -10,7 +10,7 @@
 	}
 **/
 
-const { css } = require('@boop/vkBeautify')
+const { css } = require('@boop/format')
 
 
 function main(state) {

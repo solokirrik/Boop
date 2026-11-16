@@ -10,7 +10,7 @@
 	}
 **/
 
-const { sqlmin } = require('@boop/vkBeautify')
+const { sqlmin } = require('@boop/format')
 
 
 function main(state) {

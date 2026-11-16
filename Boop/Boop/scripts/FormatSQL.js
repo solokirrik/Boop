@@ -10,7 +10,7 @@
 	}
 **/
 
-const { sql } = require('@boop/vkBeautify')
+const { sql } = require('@boop/format')
 
 
 function main(state) {

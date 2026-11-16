@@ -9,7 +9,7 @@
 	}
 **/
 
-const { camelCase } = require('@boop/lodash.boop')
+const { camelCase } = require('@boop/strings')
 
 function main(input) {
 	

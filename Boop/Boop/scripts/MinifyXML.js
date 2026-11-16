@@ -2,7 +2,7 @@
 	{
 		"api":1,
 		"name":"Minify XML",
-		"description":"Cleans and minifies XML/HTML documents.",
+		"description":"Minifies XML documents.",
 		"author":"Ivan",
 		"icon":"broom",
 		"tags":"html,minify,clean,indent",
@@ -10,9 +10,13 @@
 	}
 **/
 
-const { xmlmin } = require('@boop/vkBeautify')
+const { xmlmin } = require('@boop/format')
 
 
 function main(state) {
-	state.text = xmlmin(state.text)	
+	try {
+		state.text = xmlmin(state.text)
+	} catch (error) {
+		state.postError(error.message)
+	}
 }

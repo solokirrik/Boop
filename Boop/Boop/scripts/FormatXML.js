@@ -2,7 +2,7 @@
 	{
 		"api":1,
 		"name":"Format XML",
-		"description":"Cleans and format XML/HTML documents.",
+		"description":"Formats XML documents.",
 		"author":"Ivan",
 		"icon":"broom",
 		"tags":"html,prettify,clean,indent",
@@ -10,9 +10,13 @@
 	}
 **/
 
-const { xml } = require('@boop/vkBeautify')
+const { xml } = require('@boop/format')
 
 
 function main(state) {
-	state.text = xml(state.text)	
+	try {
+		state.text = xml(state.text)
+	} catch (error) {
+		state.postError(error.message)
+	}
 }

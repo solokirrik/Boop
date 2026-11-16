@@ -9,7 +9,7 @@
 	}
 **/
 
-const { deburr } = require('@boop/lodash.boop')
+const { deburr } = require('@boop/strings')
 
 function main(input) {
 	

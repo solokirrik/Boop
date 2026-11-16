@@ -9,7 +9,7 @@
 	}
 **/
 
-const { snakeCase } = require('@boop/lodash.boop')
+const { snakeCase } = require('@boop/strings')
 
 function main(input) {
 	

@@ -10,7 +10,7 @@
 	}
 **/
 
-const { cssmin } = require('@boop/vkBeautify')
+const { cssmin } = require('@boop/format')
 
 
 function main(state) {

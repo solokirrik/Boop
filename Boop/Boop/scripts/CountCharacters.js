@@ -10,7 +10,7 @@
 **/
 
 
-const { size } = require('@boop/lodash.boop')
+const { size } = require('@boop/strings')
 
 function main(input) {
 	
