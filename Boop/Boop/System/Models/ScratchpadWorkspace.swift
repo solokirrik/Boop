@@ -33,14 +33,6 @@ struct ScratchpadWorkspace: Codable, Equatable {
         } ?? safeTabs[0].id
     }
 
-    var selectedIndex: Int {
-        return tabs.firstIndex(where: { $0.id == selectedTabID }) ?? 0
-    }
-
-    var selectedTab: Scratchpad {
-        return tabs[selectedIndex]
-    }
-
     func validated() throws -> ScratchpadWorkspace {
         guard schemaVersion == ScratchpadWorkspace.currentSchemaVersion,
               !tabs.isEmpty,
@@ -62,48 +54,12 @@ struct ScratchpadWorkspace: Codable, Equatable {
         return normalized
     }
 
-    mutating func updateSelectedContent(_ content: String) {
-        tabs[selectedIndex].content = content
-    }
-
     @discardableResult
     mutating func createTab() -> Scratchpad {
         let tab = Scratchpad(title: nextTabTitle())
         tabs.append(tab)
         selectedTabID = tab.id
         return tab
-    }
-
-    mutating func selectTab(at index: Int) {
-        guard tabs.indices.contains(index) else { return }
-        selectedTabID = tabs[index].id
-    }
-
-    mutating func renameSelectedTab(to title: String) {
-        let trimmedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmedTitle.isEmpty else { return }
-        tabs[selectedIndex].title = trimmedTitle
-    }
-
-    mutating func closeSelectedTab() {
-        let closingIndex = selectedIndex
-
-        if tabs.count == 1 {
-            let replacement = Scratchpad()
-            tabs = [replacement]
-            selectedTabID = replacement.id
-            return
-        }
-
-        tabs.remove(at: closingIndex)
-        selectedTabID = tabs[min(closingIndex, tabs.count - 1)].id
-    }
-
-    mutating func moveSelectedTab(by offset: Int) {
-        let oldIndex = selectedIndex
-        let newIndex = oldIndex + offset
-        guard tabs.indices.contains(newIndex) else { return }
-        tabs.swapAt(oldIndex, newIndex)
     }
 
     // MARK: Operations by tab ID (one window per tab)

@@ -139,15 +139,6 @@ class StatusView: NSView {
         })
     }
     
-    fileprivate func fadeText(to alphaValue: CGFloat, completionHandler: (() -> Void)? = nil) {
-        NSAnimationContext.runAnimationGroup({ (context) in
-            context.duration = self.transitionLength / 2.5
-            self.textLabel.animator().alphaValue = alphaValue
-        }) {
-            completionHandler?()
-        }
-    }
-    
     fileprivate func updateColor(_ newStatus: Status) {
         
         var color = NSColor.quaternaryLabelColor

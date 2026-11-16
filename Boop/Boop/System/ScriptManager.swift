@@ -24,8 +24,6 @@ class ScriptManager: NSObject {
     
     var scripts = [Script]()
     
-    let currentAPIVersion = 1.0
-    
     var lastScript: Script?
     
     override init() {

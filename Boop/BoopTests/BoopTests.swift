@@ -38,8 +38,8 @@ class BoopTests: XCTestCase {
         let workspace = store.load()
 
         XCTAssertEqual(workspace.tabs.count, 1)
-        XCTAssertEqual(workspace.selectedTab.title, "Tab 1")
-        XCTAssertEqual(workspace.selectedTab.content, "")
+        XCTAssertEqual(selected(workspace).title, "Tab 1")
+        XCTAssertEqual(selected(workspace).content, "")
     }
 
     func testCorruptedWorkspaceReturnsOneBlankScratchpad() throws {
@@ -49,7 +49,7 @@ class BoopTests: XCTestCase {
         let workspace = ScratchpadWorkspaceStore(fileURL: url).load()
 
         XCTAssertEqual(workspace.tabs.count, 1)
-        XCTAssertEqual(workspace.selectedTab.content, "")
+        XCTAssertEqual(selected(workspace).content, "")
     }
 
     func testStructurallyInvalidWorkspaceReturnsOneBlankScratchpad() throws {
@@ -66,40 +66,27 @@ class BoopTests: XCTestCase {
         let workspace = ScratchpadWorkspaceStore(fileURL: url).load()
 
         XCTAssertEqual(workspace.tabs.count, 1)
-        XCTAssertEqual(workspace.selectedTab.title, "Tab 1")
+        XCTAssertEqual(selected(workspace).title, "Tab 1")
     }
 
-    func testClosingLastTabKeepsOneBlankScratchpad() {
-        var workspace = ScratchpadWorkspace(tabs: [Scratchpad(content: "discard me")])
-
-        workspace.closeSelectedTab()
-
-        XCTAssertEqual(workspace.tabs.count, 1)
-        XCTAssertEqual(workspace.selectedTab.content, "")
-    }
-
-    func testTabContentStaysIsolatedWhenSwitching() {
+    func testCreatingAndSelectingTabsKeepsContentIsolated() {
         var workspace = ScratchpadWorkspace()
-        workspace.updateSelectedContent("first")
-        workspace.createTab()
-        workspace.updateSelectedContent("second")
+        let first = workspace.tabs[0]
+        workspace.updateContent("first", forTab: first.id)
 
-        workspace.selectTab(at: 0)
-        XCTAssertEqual(workspace.selectedTab.content, "first")
-
-        workspace.selectTab(at: 1)
-        XCTAssertEqual(workspace.selectedTab.content, "second")
-    }
-
-    func testMovingTabPersistsItsOrdering() {
-        let first = Scratchpad(title: "First")
-        let second = Scratchpad(title: "Second")
-        var workspace = ScratchpadWorkspace(tabs: [first, second], selectedTabID: second.id)
-
-        workspace.moveSelectedTab(by: -1)
-
-        XCTAssertEqual(workspace.tabs.map { $0.id }, [second.id, first.id])
+        let second = workspace.createTab()
+        XCTAssertEqual(second.title, "Tab 2")
         XCTAssertEqual(workspace.selectedTabID, second.id)
+        workspace.updateContent("second", forTab: second.id)
+
+        workspace.select(tabID: first.id)
+        XCTAssertEqual(selected(workspace).content, "first")
+
+        workspace.select(tabID: UUID())
+        XCTAssertEqual(workspace.selectedTabID, first.id, "selecting an unknown tab is ignored")
+
+        workspace.select(tabID: second.id)
+        XCTAssertEqual(selected(workspace).content, "second")
     }
 
     // MARK: Operations by tab ID (one window per tab)
@@ -157,6 +144,20 @@ class BoopTests: XCTestCase {
         workspace.reorder(by: [tabs[2].id, tabs[1].id, UUID()])
 
         XCTAssertEqual(workspace.tabs.map { $0.title }, ["C", "B", "A"])
+    }
+
+    func testReorderKeepsSelection() {
+        let tabs = [Scratchpad(title: "A"), Scratchpad(title: "B")]
+        var workspace = ScratchpadWorkspace(tabs: tabs, selectedTabID: tabs[1].id)
+
+        workspace.reorder(by: [tabs[1].id, tabs[0].id])
+
+        XCTAssertEqual(workspace.tabs.map { $0.id }, [tabs[1].id, tabs[0].id])
+        XCTAssertEqual(workspace.selectedTabID, tabs[1].id)
+    }
+
+    private func selected(_ workspace: ScratchpadWorkspace) -> Scratchpad {
+        return workspace.tab(withID: workspace.selectedTabID)!
     }
 
 }
