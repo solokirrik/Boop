@@ -168,6 +168,7 @@ enum ScriptNative {
         native.setObject(atob, forKeyedSubscript: "atob" as NSString)
         native.setObject(characterCount, forKeyedSubscript: "characterCount" as NSString)
         native.setObject(formatXML, forKeyedSubscript: "formatXML" as NSString)
+        installCompression(in: native)
 
         return native
     }

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC0000010000000000000002 /* ScriptNative+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0000010000000000000001 /* ScriptNative+Compression.swift */; };
+		CC0000010000000000000003 /* ScriptNative+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0000010000000000000001 /* ScriptNative+Compression.swift */; };
+		CC0000010000000000000004 /* ScriptNative+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0000010000000000000001 /* ScriptNative+Compression.swift */; };
+		CC0000010000000000000006 /* CompressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0000010000000000000005 /* CompressionTests.swift */; };
 		EF0A70010000000000000002 /* EditorFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0A70010000000000000001 /* EditorFont.swift */; };
 		EF0A70010000000000000003 /* EditorFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0A70010000000000000001 /* EditorFont.swift */; };
 		EF0A70010000000000000004 /* EditorFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0A70010000000000000001 /* EditorFont.swift */; };
@@ -133,6 +137,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CC0000010000000000000001 /* ScriptNative+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScriptNative+Compression.swift"; sourceTree = "<group>"; };
+		CC0000010000000000000005 /* CompressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompressionTests.swift; sourceTree = "<group>"; };
 		EF0A70010000000000000001 /* EditorFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorFont.swift; sourceTree = "<group>"; };
 		AC00C0010000000000000001 /* MultiCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCursor.swift; sourceTree = "<group>"; };
 		AC00C0010000000000000011 /* EditorTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorTextView.swift; sourceTree = "<group>"; };
@@ -213,6 +219,7 @@
 			children = (
 				2C17C66924271DDA005C911C /* BoopTests.swift */,
 				AC00C0010000000000000021 /* MultiCursorTests.swift */,
+				CC0000010000000000000005 /* CompressionTests.swift */,
 				2C17C66B24271DDA005C911C /* Info.plist */,
 				2C17C67124271EBD005C911C /* ScriptManagerTests.swift */,
 			);
@@ -344,6 +351,7 @@
 				AA0000010000000000000011 /* ScratchpadWorkspace.swift */,
 				2C9761DE2214E46800AFF8CD /* Script.swift */,
 				2C0BC0DC24AAC518009B8631 /* Script+Require.swift */,
+				CC0000010000000000000001 /* ScriptNative+Compression.swift */,
 				2C53B6DF226D404E00DC6861 /* ScriptExecution.swift */,
 			);
 			path = Models;
@@ -509,6 +517,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB0000010000000000000024 /* ScriptSearch.swift in Sources */,
+				CC0000010000000000000004 /* ScriptNative+Compression.swift in Sources */,
 				AA0000010000000000000005 /* ScratchpadWorkspace.swift in Sources */,
 				AA0000010000000000000006 /* ScratchpadWorkspaceStore.swift in Sources */,
 				2C17C67224271EBD005C911C /* ScriptManagerTests.swift in Sources */,
@@ -519,6 +528,7 @@
 				2C17C6772427214D005C911C /* ScriptExecution.swift in Sources */,
 				2C17C66A24271DDA005C911C /* BoopTests.swift in Sources */,
 				AC00C0010000000000000022 /* MultiCursorTests.swift in Sources */,
+				CC0000010000000000000006 /* CompressionTests.swift in Sources */,
 				2C17C67324271EE8005C911C /* ScriptManager.swift in Sources */,
 				EF0A70010000000000000002 /* EditorFont.swift in Sources */,
 				AC00C0010000000000000002 /* MultiCursor.swift in Sources */,
@@ -530,6 +540,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB0000010000000000000022 /* ScriptSearch.swift in Sources */,
+				CC0000010000000000000002 /* ScriptNative+Compression.swift in Sources */,
 				BB0000010000000000000002 /* BoopWindowController.swift in Sources */,
 				BB0000010000000000000005 /* WorkspaceController.swift in Sources */,
 				AA0000010000000000000001 /* ScratchpadWorkspace.swift in Sources */,
@@ -569,6 +580,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB0000010000000000000023 /* ScriptSearch.swift in Sources */,
+				CC0000010000000000000003 /* ScriptNative+Compression.swift in Sources */,
 				BB0000010000000000000003 /* BoopWindowController.swift in Sources */,
 				BB0000010000000000000006 /* WorkspaceController.swift in Sources */,
 				AA0000010000000000000003 /* ScratchpadWorkspace.swift in Sources */,

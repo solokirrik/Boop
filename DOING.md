@@ -14,6 +14,10 @@ Nothing right now.
 
 ## Done
 
+### Compression Scripts
+
+Gzip Decompress (gzip, zlib or raw DEFLATE), LZ4 Decompress (LZ4 frames, legacy frames or a raw block), Gzip Compress and LZ4 Compress (a standard LZ4 frame) and LZ4 Compress (Size-Prefixed Block), the format of Python's lz4.block and many online tools; LZ4 Decompress reads it too. Compressed data is pasted as base64 or hex; output that isn't text is shown as hex. Backed by zlib and a small Swift LZ4 decoder in a new `@boop/compression` module.
+
 ### Multi Cursor Editing
 
 Several cursors that type, delete, move, copy and paste together. Add them with ⌘-click, ⌥-drag (columns), ⌥⌘↑/↓, ⌘D (next match), ⌃⌘G (all matches) or ⇧⌘L (split into lines); Esc goes back to one. Undo puts the cursors back.
