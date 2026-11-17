@@ -53,7 +53,7 @@ class ScriptsSettingsViewController: NSViewController {
     
     @IBAction func didClickHelpButton(_ sender: Any) {
 
-        guard let url = URL(string: "https://boop.okat.best/docs/scripts") else {
+        guard let url = URL(string: "https://github.com/solokirrik/Boop/blob/main/Boop/Documentation/CustomScripts.md") else {
             assertionFailure("Could not generate help URL.")
             return
         }

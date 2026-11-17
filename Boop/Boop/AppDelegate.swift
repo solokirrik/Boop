@@ -118,11 +118,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     }
 
     @IBAction func openHelp(_ sender: Any) {
-        open(url: "https://boop.okat.best/docs/")
+        open(url: "https://github.com/solokirrik/Boop/blob/main/Boop/Documentation/Readme.md")
     }
 
     @IBAction func openScripts(_ sender: Any) {
-        open(url: "https://boop.okat.best/scripts/")
+        open(url: "https://github.com/solokirrik/Boop/tree/main/Scripts")
     }
 
     private func open(url: String) {
