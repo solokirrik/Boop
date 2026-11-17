@@ -16,7 +16,11 @@ Nothing right now.
 
 ### Compression Scripts
 
-Gzip Decompress (gzip, zlib or raw DEFLATE), LZ4 Decompress (LZ4 frames, legacy frames or a raw block), Gzip Compress and LZ4 Compress (a standard LZ4 frame) and LZ4 Compress (Size-Prefixed Block), the format of Python's lz4.block and many online tools; LZ4 Decompress reads it too. Compressed data is pasted as base64 or hex; output that isn't text is shown as hex. Backed by zlib and a small Swift LZ4 decoder in a new `@boop/compression` module.
+Gzip Decompress (gzip, zlib or raw DEFLATE) and LZ4 Decompress (LZ4 frames, legacy frames, or a raw block with or without a 4-byte size prefix). Gzip Compress, LZ4 Compress (a standard frame, as the `lz4` CLI writes) and LZ4 Compress (Size-Prefixed Block, as Python's `lz4.block` writes). Compressed data is base64 or hex; output that isn't text is shown as hex. Backed by zlib, Apple's LZ4 encoder and a Swift LZ4 decoder in a new `@boop/compression` module.
+
+### Box Table Scripts
+
+Box Table to Markdown turns box-drawing (`┌─┬─┐ │`) and ASCII (`+---+`) tables into markdown tables, joining cells that wrap over several lines. Markdown to Box Table goes the other way and keeps `:---:` and `---:` column alignment.
 
 ### Multi Cursor Editing
 
