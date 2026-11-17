@@ -129,7 +129,7 @@ final class EditorView: NSView {
         textView.textColor = theme.textColor
         textView.backgroundColor = theme.backgroundColor.withAlphaComponent(1 - WindowTransparency.level)
         textView.drawsBackground = true
-        textView.insertionPointColor = theme.colors.cursor
+        textView.caretColor = theme.colors.cursor
         var selection = textView.selectedTextAttributes
         selection[.backgroundColor] = theme.colors.selection ?? NSColor.selectedTextBackgroundColor
         textView.selectedTextAttributes = selection
@@ -172,23 +172,5 @@ final class EditorView: NSView {
         }
         pendingHighlight = work
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: work)
-    }
-}
-
-/// NSTextView with code-editor typing: Tab inserts spaces, Return keeps the indentation.
-final class EditorTextView: NSTextView {
-
-    var tabWidth = 4
-
-    override func insertTab(_ sender: Any?) {
-        insertText(String(repeating: " ", count: tabWidth), replacementRange: selectedRange())
-    }
-
-    override func insertNewline(_ sender: Any?) {
-        let text = string as NSString
-        let lineRange = text.lineRange(for: NSRange(location: selectedRange().location, length: 0))
-        let line = text.substring(with: lineRange)
-        let indentation = line.prefix { $0 == " " || $0 == "\t" }
-        insertText("\n" + indentation, replacementRange: selectedRange())
     }
 }

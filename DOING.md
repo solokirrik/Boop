@@ -10,11 +10,13 @@ Nothing right now.
 
 ## Planned
 
-### Multi Cursor Editing
-
-The ability to have more than one active cursor to type and edit content.
+Nothing right now.
 
 ## Done
+
+### Multi Cursor Editing
+
+Several cursors that type, delete, move, copy and paste together. Add them with ⌘-click, ⌥-drag (columns), ⌥⌘↑/↓, ⌘D (next match), ⌃⌘G (all matches) or ⇧⌘L (split into lines); Esc goes back to one. Undo puts the cursors back.
 
 ### Font Settings
 

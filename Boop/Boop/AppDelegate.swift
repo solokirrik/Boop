@@ -23,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     func applicationDidFinishLaunching(_ notification: Notification) {
         installTabMenus()
         installFontSizeMenu()
+        installMultiCursorMenu()
         workspace.restoreWindows()
     }
 
@@ -84,6 +85,33 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
             item.target = self
             viewMenu.insertItem(item, at: index)
         }
+    }
+
+    /// Edit > Multiple Cursors. The items go along the responder chain to the editor.
+    private func installMultiCursorMenu() {
+        guard let editMenu = NSApp.mainMenu?.item(withTitle: "Edit")?.submenu,
+              let selectAllIndex = editMenu.items.firstIndex(where: { $0.action == #selector(NSText.selectAll(_:)) }) else { return }
+
+        func item(_ title: String, _ action: Selector, _ key: String, _ modifiers: NSEvent.ModifierFlags) -> NSMenuItem {
+            let item = NSMenuItem(title: title, action: action, keyEquivalent: key)
+            item.keyEquivalentModifierMask = modifiers
+            return item
+        }
+        let up = String(Character(UnicodeScalar(NSUpArrowFunctionKey)!))
+        let down = String(Character(UnicodeScalar(NSDownArrowFunctionKey)!))
+
+        let submenu = NSMenu(title: "Multiple Cursors")
+        submenu.items = [
+            item("Add Cursor Above", #selector(EditorTextView.addCursorAbove(_:)), up, [.command, .option]),
+            item("Add Cursor Below", #selector(EditorTextView.addCursorBelow(_:)), down, [.command, .option]),
+            .separator(),
+            item("Select Next Occurrence", #selector(EditorTextView.selectNextOccurrence(_:)), "d", [.command]),
+            item("Select All Occurrences", #selector(EditorTextView.selectAllOccurrences(_:)), "g", [.command, .control]),
+            item("Split Selection into Lines", #selector(EditorTextView.splitSelectionIntoLines(_:)), "l", [.command, .shift])
+        ]
+        let parent = NSMenuItem(title: "Multiple Cursors", action: nil, keyEquivalent: "")
+        parent.submenu = submenu
+        editMenu.insertItem(parent, at: selectAllIndex + 1)
     }
 
     @IBAction func makeTextBigger(_ sender: Any) {

@@ -27,6 +27,19 @@ To start over, you can clear the editor by pressing `⌘N`.
 
 If you are developing scripts, you can reload all the script by pressing `⇧⌘R` or  from the script menu as well.
 
+### Multiple cursors
+
+You can type, delete, move, copy and paste at several places at once:
+
+- `⌘`-click adds a cursor, `⌘`-drag adds a selection, and `⌘`-clicking a cursor removes it.
+- `⌥`-drag places a cursor on every line it crosses, selecting the same columns.
+- `⌥⌘↑` / `⌥⌘↓` add a cursor on the line above or below.
+- `⌘D` selects the word at the cursor, then adds the next match of the selection.
+- `⌃⌘G` selects every match, and `⇧⌘L` splits a selection into one per line.
+- `Esc` goes back to a single cursor.
+
+Scripts run on every selected range at once. When the clipboard has one line per cursor, pasting gives each cursor its own line.
+
 ## Questions
 
 ### Can I see a list of all scripts?
