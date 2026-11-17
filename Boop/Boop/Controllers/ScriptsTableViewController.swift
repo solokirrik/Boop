@@ -16,6 +16,22 @@ class ScriptsTableViewController: NSViewController, NSTableViewDelegate, NSTable
             tableView.reloadData()
         }
     }
+
+    // Loaded from BoopWindow.xib; awakeFromNib would run again for every cell made with owner: self
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        NotificationCenter.default.addObserver(self, selector: #selector(editorThemeDidChange),
+                                               name: EditorThemeChoice.didChangeNotification, object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    /// Recolor the icons if the theme changes while the picker is open.
+    @objc private func editorThemeDidChange() {
+        tableView.reloadData()
+    }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         return results.count
@@ -93,6 +109,7 @@ class ScriptsTableViewController: NSViewController, NSTableViewDelegate, NSTable
         view.subtitleLabel.stringValue = script.desc ?? "No Description 😢"
         
         view.imageView?.image = self.scriptIcon(identifier: script.icon)
+        view.iconTint = EditorThemeChoice.current.accentColor
         
         return view
         

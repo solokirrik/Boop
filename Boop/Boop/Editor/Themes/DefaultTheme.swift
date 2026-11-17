@@ -43,6 +43,11 @@ enum EditorThemeChoice: Int, CaseIterable {
         return flavor == .latte ? .aqua : .darkAqua
     }
 
+    /// Script picker icon tint; nil keeps the system label color.
+    var accentColor: NSColor? {
+        return catppuccinFlavor?.palette.mauve
+    }
+
     static func didChange() {
         NotificationCenter.default.post(name: didChangeNotification, object: nil)
     }
