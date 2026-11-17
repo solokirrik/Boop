@@ -3,7 +3,7 @@
 		"api":1,
 		"name":"LZ4 Compress",
 		"description":"Compresses your text into an LZ4 frame, output as base64.",
-		"author":"Kirill Tishenkov",
+		"author":"Kirill",
 		"icon":"collapse",
 		"tags":"lz4,compress"
 	}

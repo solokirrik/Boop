@@ -3,7 +3,7 @@
 		"api":1,
 		"name":"Gzip Compress",
 		"description":"Gzips your text and outputs it as base64.",
-		"author":"Kirill Tishenkov",
+		"author":"Kirill",
 		"icon":"collapse",
 		"tags":"gzip,zlib,deflate,compress,zip"
 	}

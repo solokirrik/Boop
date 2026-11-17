@@ -3,7 +3,7 @@
 		"api":1,
 		"name":"LZ4 Decompress",
 		"description":"Decompresses base64 or hex LZ4 frames or raw LZ4 blocks.",
-		"author":"Kirill Tishenkov",
+		"author":"Kirill",
 		"icon":"metamorphose",
 		"tags":"lz4,decompress,uncompress"
 	}

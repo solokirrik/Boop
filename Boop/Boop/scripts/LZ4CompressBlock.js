@@ -3,7 +3,7 @@
 		"api":1,
 		"name":"LZ4 Compress (Size-Prefixed Block)",
 		"description":"Compresses your text into a raw LZ4 block after a 4-byte size, output as base64.",
-		"author":"Kirill Tishenkov",
+		"author":"Kirill",
 		"icon":"collapse",
 		"tags":"lz4,compress,block,raw,python,size"
 	}

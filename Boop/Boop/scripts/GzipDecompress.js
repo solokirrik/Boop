@@ -3,7 +3,7 @@
 		"api":1,
 		"name":"Gzip Decompress",
 		"description":"Decompresses base64 or hex gzip, zlib or DEFLATE data.",
-		"author":"Kirill Tishenkov",
+		"author":"Kirill",
 		"icon":"metamorphose",
 		"tags":"gzip,gunzip,zlib,deflate,inflate,decompress,uncompress,unzip"
 	}

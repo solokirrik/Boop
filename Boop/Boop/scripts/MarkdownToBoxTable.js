@@ -3,7 +3,7 @@
   "api":1,
   "name":"Markdown to Box Table",
   "description":"Converts a markdown table into a box-drawing (┌─┬─┐ │ │) table.",
-  "author":"Kirill Tishenkov",
+  "author":"Kirill",
   "icon":"table",
   "tags":"table,markdown,md,box,ascii,pseudographic,unicode,convert"
 }
