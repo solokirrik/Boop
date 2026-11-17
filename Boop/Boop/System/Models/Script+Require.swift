@@ -204,7 +204,7 @@ enum ScriptNative {
     /// holding text are printed as is so their content isn't changed. The XML
     /// declaration and DOCTYPE are copied from the input verbatim.
     static func xml(_ text: String, minify: Bool) throws -> String {
-        let document = try XMLDocument(xmlString: text, options: [.nodePreserveCDATA])
+        let document = try XMLDocument(xmlString: text, options: [.nodePreserveCDATA, .nodeLoadExternalEntitiesNever])
         let prolog = [#"^\s*<\?xml[^>]*\?>"#, #"<!DOCTYPE[^\[>]*(\[[\s\S]*?\])?\s*>"#].compactMap { pattern in
             text.range(of: pattern, options: [.regularExpression, .caseInsensitive])
                 .map { text[$0].trimmingCharacters(in: .whitespacesAndNewlines) }

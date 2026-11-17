@@ -136,6 +136,12 @@ class ScriptManagerTests: XCTestCase {
         XCTAssertEqual(run("Format XML", "<a><b></a>"), "<a><b></a>", "malformed XML is left alone")
     }
 
+    func testFormatXMLDoesNotLoadExternalEntities() {
+        let input = #"<?xml version="1.0"?><!DOCTYPE a [<!ENTITY x SYSTEM "file:///etc/hosts">]><a>&x;</a>"#
+        XCTAssertFalse(run("Format XML", input).contains("localhost"))
+        XCTAssertFalse(run("Minify XML", input).contains("localhost"))
+    }
+
     func testFormatCSSKeepsStringsAndURLsWhole() {
         XCTAssertEqual(run("Format CSS", #"a{content:";";background:url(data:x;base64,AA)}"#), """
             a {
