@@ -10,15 +10,15 @@ Nothing right now.
 
 ## Planned
 
-### Font Settings
-
-The ability to change font, and more importantly font-size.
-
 ### Multi Cursor Editing
 
 The ability to have more than one active cursor to type and edit content.
 
 ## Done
+
+### Font Settings
+
+Font and Size (9–36 pt) in Settings > Appearance, monospaced fonts only. View > Bigger (⌘+), Smaller (⌘−) and Actual Size (⌘0) change the size from the keyboard.
 
 ### Fewer bundled script libraries
 
