@@ -101,6 +101,8 @@ final class EditorView: NSView {
                                                name: WindowTransparency.didChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(editorThemeDidChange),
                                                name: EditorThemeChoice.didChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(editorThemeDidChange),
+                                               name: EditorFont.didChangeNotification, object: nil)
     }
 
     @objc private func editorThemeDidChange() {

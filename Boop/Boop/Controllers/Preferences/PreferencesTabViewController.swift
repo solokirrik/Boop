@@ -10,7 +10,7 @@ import Cocoa
 class PreferencesTabViewController: NSTabViewController {
 
     /// Every pane gets the same size, so the window doesn't jump when switching tabs.
-    static let paneSize = NSSize(width: 560, height: 270)
+    static let paneSize = NSSize(width: 560, height: 330)
 
     override func viewDidLoad() {
         super.viewDidLoad()

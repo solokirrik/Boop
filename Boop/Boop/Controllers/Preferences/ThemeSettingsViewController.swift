@@ -14,7 +14,7 @@ enum BoopColorScheme: Int {
     case dark
 }
 
-/// Settings > Colors: editor theme, color scheme, window transparency and its background style.
+/// Settings > Appearance: editor theme, color scheme, window transparency and its background style, editor font.
 class ThemeSettingsViewController: NSViewController {
     static let userPreferencesSchemeKey = "boopColorScheme"
 
@@ -38,6 +38,9 @@ class ThemeSettingsViewController: NSViewController {
     private let backgroundControl = NSSegmentedControl(labels: ["Frosted", "Glass", "Clear Glass"], trackingMode: .selectOne, target: nil, action: nil)
     private let transparencySlider = NSSlider(value: 0, minValue: 0, maxValue: 100, target: nil, action: nil)
     private let transparencyValue = NSTextField(labelWithString: "")
+    private let fontPopup = NSPopUpButton(frame: .zero, pullsDown: false)
+    private let sizeField = NSTextField()
+    private let sizeStepper = NSStepper()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,11 +78,38 @@ class ThemeSettingsViewController: NSViewController {
         let sliderRow = NSStackView(views: [transparencySlider, transparencyValue])
         sliderRow.spacing = 8
 
+        fontPopup.target = self
+        fontPopup.action = #selector(didChangeFont(_:))
+        fontPopup.toolTip = "Monospaced fonts only, so columns line up"
+
+        let sizeFormatter = NumberFormatter()
+        sizeFormatter.minimum = NSNumber(value: Double(EditorFont.sizes.lowerBound))
+        sizeFormatter.maximum = NSNumber(value: Double(EditorFont.sizes.upperBound))
+        sizeFormatter.maximumFractionDigits = 0
+        sizeField.formatter = sizeFormatter
+        sizeField.alignment = .right
+        sizeField.target = self
+        sizeField.action = #selector(didChangeFontSize(_:))
+        sizeField.widthAnchor.constraint(equalToConstant: 44).isActive = true
+
+        sizeStepper.minValue = Double(EditorFont.sizes.lowerBound)
+        sizeStepper.maxValue = Double(EditorFont.sizes.upperBound)
+        sizeStepper.increment = 1
+        sizeStepper.valueWraps = false
+        sizeStepper.target = self
+        sizeStepper.action = #selector(didChangeFontSize(_:))
+
+        let sizeRow = NSStackView(views: [sizeField, sizeStepper, NSTextField(labelWithString: "pt")])
+        sizeRow.spacing = 4
+        sizeRow.toolTip = "Also View > Bigger (⌘+), Smaller (⌘−) and Actual Size (⌘0)"
+
         let grid = NSGridView(views: [
             [label("Theme:"), themePopup],
             [label("Color Scheme:"), schemeControl],
             [label("Transparency:"), sliderRow],
-            [label("Background:"), backgroundControl]
+            [label("Background:"), backgroundControl],
+            [label("Font:"), fontPopup],
+            [label("Size:"), sizeRow]
         ])
         grid.rowSpacing = 14
         grid.columnSpacing = 10
@@ -87,6 +117,8 @@ class ThemeSettingsViewController: NSViewController {
         grid.rowAlignment = .firstBaseline
         grid.row(at: 2).yPlacement = .center
         grid.row(at: 2).rowAlignment = .none
+        grid.row(at: 5).yPlacement = .center
+        grid.row(at: 5).rowAlignment = .none
         grid.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(grid)
@@ -97,7 +129,13 @@ class ThemeSettingsViewController: NSViewController {
             grid.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
 
+        NotificationCenter.default.addObserver(self, selector: #selector(fontDidChange),
+                                               name: EditorFont.didChangeNotification, object: nil)
         refresh()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func viewWillAppear() {
@@ -120,6 +158,45 @@ class ThemeSettingsViewController: NSViewController {
         backgroundControl.selectedSegment = WindowTransparency.style.rawValue
         transparencySlider.integerValue = WindowTransparency.percent
         updateTransparencyUI()
+        reloadFonts()
+        updateFontSizeUI()
+    }
+
+    /// Fonts installed while Settings was closed show up next time it opens.
+    private func reloadFonts() {
+        fontPopup.removeAllItems()
+        fontPopup.addItem(withTitle: "System Mono")
+        fontPopup.menu?.addItem(.separator())
+        for family in EditorFont.availableFamilies {
+            fontPopup.addItem(withTitle: family)
+            fontPopup.lastItem?.representedObject = family
+        }
+        if let family = EditorFont.family, fontPopup.item(withTitle: family) != nil {
+            fontPopup.selectItem(withTitle: family)
+        } else {
+            fontPopup.selectItem(at: 0)
+        }
+    }
+
+    private func updateFontSizeUI() {
+        let size = Int(EditorFont.size)
+        sizeField.integerValue = size
+        sizeStepper.integerValue = size
+    }
+
+    /// The size can change from the View menu while Settings is open.
+    @objc private func fontDidChange() {
+        updateFontSizeUI()
+    }
+
+    @IBAction func didChangeFont(_ sender: Any) {
+        EditorFont.setFamily(fontPopup.selectedItem?.representedObject as? String)
+    }
+
+    @IBAction func didChangeFontSize(_ sender: Any) {
+        let value = (sender as? NSStepper)?.doubleValue ?? sizeField.doubleValue
+        EditorFont.setSize(CGFloat(value))
+        updateFontSizeUI()
     }
 
     private func updateTransparencyUI() {

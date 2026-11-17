@@ -32,7 +32,7 @@
             <objects>
                 <tabViewController selectedTabViewItemIndex="0" tabStyle="toolbar" id="YGr-Uf-ZBE" customClass="PreferencesTabViewController" customModule="Boop" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
-                        <tabViewItem label="Colors" image="paintpalette" catalog="system" id="OgA-dF-Ylu"/>
+                        <tabViewItem label="Appearance" image="paintpalette" catalog="system" id="OgA-dF-Ylu"/>
                         <tabViewItem label="Scripts" identifier="" image="text.and.command.interface.window" catalog="system" id="drV-oE-7k3"/>
                     </tabViewItems>
                     <tabView key="tabView" type="noTabsNoBorder" id="nRh-fE-4La">
@@ -53,10 +53,10 @@
             </objects>
             <point key="canvasLocation" x="28" y="346"/>
         </scene>
-        <!--Colors-->
+        <!--Appearance-->
         <scene sceneID="BWz-sk-Mpa">
             <objects>
-                <viewController title="Colors" id="dVd-GH-dN9" customClass="ThemeSettingsViewController" customModule="Boop" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Appearance" id="dVd-GH-dN9" customClass="ThemeSettingsViewController" customModule="Boop" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="WPr-zk-ei7">
                         <rect key="frame" x="0.0" y="0.0" width="460" height="170"/>
                         <autoresizingMask key="autoresizingMask"/>

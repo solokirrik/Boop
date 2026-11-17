@@ -156,6 +156,55 @@ class BoopTests: XCTestCase {
         XCTAssertEqual(workspace.selectedTabID, tabs[1].id)
     }
 
+    // MARK: Editor font
+
+    /// Runs `body` with the font settings cleared, then puts the user's own back.
+    private func withCleanFontDefaults(_ body: () -> Void) {
+        let defaults = UserDefaults.standard
+        let keys = [EditorFont.familyUserPreferencesKey, EditorFont.sizeUserPreferencesKey]
+        let saved = keys.map { defaults.object(forKey: $0) }
+        keys.forEach { defaults.removeObject(forKey: $0) }
+        defer { zip(keys, saved).forEach { defaults.set($1, forKey: $0) } }
+        body()
+    }
+
+    func testEditorFontDefaultsToSystemMonospaced() {
+        withCleanFontDefaults {
+            XCTAssertNil(EditorFont.family)
+            XCTAssertEqual(EditorFont.current, NSFont.monospacedSystemFont(ofSize: 15, weight: .regular))
+        }
+    }
+
+    func testEditorFontSizeIsClampedAndRounded() {
+        withCleanFontDefaults {
+            EditorFont.setSize(100)
+            XCTAssertEqual(EditorFont.size, 36)
+            EditorFont.setSize(2)
+            XCTAssertEqual(EditorFont.size, 9)
+            EditorFont.setSize(16.4)
+            XCTAssertEqual(EditorFont.current.pointSize, 16)
+        }
+    }
+
+    func testEditorFontUsesFamilyAndFallsBackWhenMissing() {
+        withCleanFontDefaults {
+            EditorFont.setFamily("Menlo")
+            EditorFont.setSize(18)
+            XCTAssertEqual(EditorFont.current.familyName, "Menlo")
+            XCTAssertEqual(EditorFont.current.pointSize, 18)
+
+            EditorFont.setFamily("No Such Font")
+            XCTAssertEqual(EditorFont.current, NSFont.monospacedSystemFont(ofSize: 18, weight: .regular))
+        }
+    }
+
+    func testEditorFontListsOnlyMonospacedFamilies() {
+        let families = EditorFont.availableFamilies
+        XCTAssertTrue(families.contains("Menlo"), "\(families)")
+        XCTAssertFalse(families.contains("Helvetica"))
+        XCTAssertFalse(families.contains { $0.hasPrefix(".") })
+    }
+
     private func selected(_ workspace: ScratchpadWorkspace) -> Scratchpad {
         return workspace.tab(withID: workspace.selectedTabID)!
     }

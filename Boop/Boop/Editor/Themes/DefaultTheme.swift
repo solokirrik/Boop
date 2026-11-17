@@ -7,7 +7,7 @@
 
 import Cocoa
 
-/// The editor's color theme, picked in Settings > Colors.
+/// The editor's color theme, picked in Settings > Appearance.
 enum EditorThemeChoice: Int, CaseIterable {
     case boop
     case catppuccinLatte
@@ -86,7 +86,7 @@ struct EditorTheme {
     }
 
     let tabWidth = 4
-    let font = NSFont.monospacedSystemFont(ofSize: 15, weight: .regular)
+    let font = EditorFont.current
 
     var textColor: NSColor {
         return colors.text

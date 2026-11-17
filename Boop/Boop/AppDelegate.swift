@@ -8,7 +8,7 @@
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
 
     private var workspace: WorkspaceController {
         return WorkspaceController.shared
@@ -22,6 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         installTabMenus()
+        installFontSizeMenu()
         workspace.restoreWindows()
     }
 
@@ -63,6 +64,46 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 item.tag = index
                 windowMenu.addItem(item)
             }
+        }
+    }
+
+    /// View > Bigger / Smaller / Actual Size change the editor font size in every window.
+    private func installFontSizeMenu() {
+        guard let viewMenu = NSApp.mainMenu?.item(withTitle: "View")?.submenu else { return }
+
+        let bigger = NSMenuItem(title: "Bigger", action: #selector(makeTextBigger(_:)), keyEquivalent: "+")
+        // ⌘= is the unshifted key for ⌘+ on most layouts
+        let biggerAlternate = NSMenuItem(title: "Bigger", action: #selector(makeTextBigger(_:)), keyEquivalent: "=")
+        biggerAlternate.isHidden = true
+        biggerAlternate.allowsKeyEquivalentWhenHidden = true
+        let smaller = NSMenuItem(title: "Smaller", action: #selector(makeTextSmaller(_:)), keyEquivalent: "-")
+        let actualSize = NSMenuItem(title: "Actual Size", action: #selector(makeTextActualSize(_:)), keyEquivalent: "0")
+
+        let items = [bigger, biggerAlternate, smaller, actualSize, .separator()]
+        for (index, item) in items.enumerated() {
+            item.target = self
+            viewMenu.insertItem(item, at: index)
+        }
+    }
+
+    @IBAction func makeTextBigger(_ sender: Any) {
+        EditorFont.setSize(EditorFont.size + 1)
+    }
+
+    @IBAction func makeTextSmaller(_ sender: Any) {
+        EditorFont.setSize(EditorFont.size - 1)
+    }
+
+    @IBAction func makeTextActualSize(_ sender: Any) {
+        EditorFont.setSize(EditorFont.defaultSize)
+    }
+
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        switch menuItem.action {
+        case #selector(makeTextBigger(_:)): return EditorFont.size < EditorFont.sizes.upperBound
+        case #selector(makeTextSmaller(_:)): return EditorFont.size > EditorFont.sizes.lowerBound
+        case #selector(makeTextActualSize(_:)): return EditorFont.size != EditorFont.defaultSize
+        default: return true
         }
     }
 

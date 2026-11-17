@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF0A70010000000000000002 /* EditorFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0A70010000000000000001 /* EditorFont.swift */; };
+		EF0A70010000000000000003 /* EditorFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0A70010000000000000001 /* EditorFont.swift */; };
+		EF0A70010000000000000004 /* EditorFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0A70010000000000000001 /* EditorFont.swift */; };
 		BB0000010000000000000032 /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000031 /* EditorView.swift */; };
 		BB0000010000000000000033 /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000031 /* EditorView.swift */; };
 		BB0000010000000000000022 /* ScriptSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000021 /* ScriptSearch.swift */; };
@@ -127,6 +130,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EF0A70010000000000000001 /* EditorFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorFont.swift; sourceTree = "<group>"; };
 		BB0000010000000000000031 /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
 		BB0000010000000000000021 /* ScriptSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptSearch.swift; sourceTree = "<group>"; };
 		BB0000010000000000000011 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
@@ -285,6 +289,7 @@
 				2C20668F21FD64A20082570E /* DefaultTheme.swift */,
 				2C9118B523406B530018916F /* Colors.swift */,
 				CA77A0010000000000000001 /* Catppuccin.swift */,
+				EF0A70010000000000000001 /* EditorFont.swift */,
 			);
 			path = Themes;
 			sourceTree = "<group>";
@@ -508,6 +513,7 @@
 				2C60A56224871730006496BA /* UpdateTextField.swift in Sources */,
 				2C17C66A24271DDA005C911C /* BoopTests.swift in Sources */,
 				2C17C67324271EE8005C911C /* ScriptManager.swift in Sources */,
+				EF0A70010000000000000002 /* EditorFont.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,6 +536,7 @@
 				2C20669121FD64A20082570E /* DefaultTheme.swift in Sources */,
 				CA77A0010000000000000002 /* Catppuccin.swift in Sources */,
 				2C9761DC2214E45300AFF8CD /* ScriptManager.swift in Sources */,
+				EF0A70010000000000000003 /* EditorFont.swift in Sources */,
 				2C20667621FD628E0082570E /* AppDelegate.swift in Sources */,
 				2C20669E21FE445E0082570E /* OverlayView.swift in Sources */,
 				2C9761E12214E68D00AFF8CD /* ScriptTableViewCell.swift in Sources */,
@@ -567,6 +574,7 @@
 				2C60A54224871273006496BA /* DefaultTheme.swift in Sources */,
 				CA77A0010000000000000003 /* Catppuccin.swift in Sources */,
 				2C60A54324871273006496BA /* ScriptManager.swift in Sources */,
+				EF0A70010000000000000004 /* EditorFont.swift in Sources */,
 				2C60A54424871273006496BA /* AppDelegate.swift in Sources */,
 				2C873BE42697C34200D9A3F0 /* PopoverContainerView.swift in Sources */,
 				2C60A54524871273006496BA /* OverlayView.swift in Sources */,
